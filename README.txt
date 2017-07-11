@@ -7,3 +7,5 @@ The game is a "skill-shot/target practice" style game that is similar in functio
 Players hit as many targets as possible during a set interval or "round".
 
 Targets will generate randomly && move around the game field && vanish if not hit by player within a certain interval
+
+Scores are kept and after both players get turn the winner is posted via an alert popup
