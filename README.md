@@ -11,7 +11,8 @@ Project One README
 
 
 2. Functionality
-3.Target Object
+
+3. Target Object
 		generate randomly-----------
 		move around the game space-----------
 		vanish off game space if not hit by the player within a certain interval-----------

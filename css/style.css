@@ -1,0 +1,30 @@
+*{
+	box-sizing: border-box;
+}
+
+footer {
+	position: absolute;
+	height: 85px;
+	bottom: 0px;
+	width: 100%;
+	background: linear-gradient(to right, #331C14, #D73836, #CC4361);
+}	
+.footer_section {
+	width: 35%;
+	float: right;
+
+}
+#iconContainer {
+	padding-top: 32px;
+	padding-left: 65px;
+}
+.icon {
+	position: relative;
+	font-size: 2em;
+	text-decoration: none;
+	padding: 10px 10px;
+	margin: auto 10px;
+	color: black;
+	background: transparent;
+
+}
