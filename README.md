@@ -29,7 +29,7 @@ Project One README
 		User triggers a keyup function on the spacebar, signifying a "shot"
 		At the time this event triggers, user is aiming via cursor position. Hovering over the target.
 		
-		If hovering over an element with class ".target":	
+		If hovering over an element with class ".target"	
 			It will add the class ".hit" to the element (which will impact style)
 			If the hovered element does not have the class ".target", It will register shot as miss.
 				Total shots will be tracked for stretch goals.
