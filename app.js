@@ -1,6 +1,21 @@
+
+///////// GLOBAL GAMEPLAY SETTINGS ////////////
+var n = 3;
+var timer = setInterval(countDown, 1000);
+
+function countDown(){
+	n--;
+	if(n === 0){
+		clearInterval(timer);
+	}
+	console.log(n);
+}
+
+
 $(function(){
 
-//INSTRUCTIONS POPUP FUNCTIONALITY
+
+///////// POPUP FUNCTIONALITY ////////////
 
 	$("#triggerInstructions").click(function(){
 		$("#instructions").toggleClass("hidden");
@@ -11,14 +26,15 @@ $(function(){
 	});
 
 	$("#triggerPlay").click(function(){
-		$("#game_cover").addClass("hidden");
+		$("#game_cover").fadeOut('1500ms',function(){
+			$(this).addClass("hidden");
+			setTimeout(function(){ alert("Player One: You're Up Bitch"); }, 1000);
+		});
 	});
+	
 
 
-
-
-
-
+///////// TARGET OBJECTS //////////
 
 
 
