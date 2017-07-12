@@ -2,29 +2,123 @@
 	box-sizing: border-box;
 }
 
-footer {
-	position: absolute;
+body {
+	background: ; 
+}	
+
+/*********NAVIGATION*************/
+#nav {
+	position: fixed;
+	top: 0px;
 	height: 85px;
+	width: 100%;
+	background: linear-gradient(to left, #331C14, #D73836, #CC4361);
+	text-align: center;
+}
+nav img {
+	float: left;
+	padding-top: 35px;
+	padding-left: 20px;
+}
+span#nav_head{
+	display: inline-block;
+	margin: auto;
+	vertical-align: text-top;
+	padding-top: 35px;
+	padding-right: 46px;
+}
+
+/*********MAIN CONTENT SECTION*************/
+
+.section {
+	position: relative;
+	top: 85px;
+	height: 560px;
+	width: 80%;
+	margin: 0px auto;
+	background: rgba(25, 24, 23, 1.0);
+}
+#gameSpace {
+	position: relative;
+	top: 20px;
+	width: 60%;
+	height: 400px;
+	background: white;
+	margin: auto;
+	border-radius: 2px;
+}
+.button_container {
+	width: 100%;
+	margin: 50px auto 0;
+	text-align: center;
+}
+.button {
+	padding: 8px 20px;
+	margin: 0 20px;
+	background: rgba(207, 63, 92, 1.0);
+	border-radius: 2px;
+	border: 1px solid black;
+}
+
+.button:hover {
+	transition-duration: 550ms;
+	color: white;
+	background: rgba(143, 42, 35, 1.0);}
+
+/*********FOOTER*************/
+
+footer {
+	position: fixed;
+	height: 55px;
 	bottom: 0px;
 	width: 100%;
-	background: linear-gradient(to right, #331C14, #D73836, #CC4361);
-}	
+	background: linear-gradient(to right, #331C14, #D73836, #CC4361);}	
 .footer_section {
-	width: 35%;
-	float: right;
+	width: 49%;
+}
 
-}
 #iconContainer {
-	padding-top: 32px;
-	padding-left: 65px;
-}
+	padding: 8px 20px 0 0;
+		float: right;}
 .icon {
 	position: relative;
-	font-size: 2em;
+	font-size: 1.25em;
 	text-decoration: none;
-	padding: 10px 10px;
+	float: right;
+	padding: 10px 6px;
 	margin: auto 10px;
 	color: black;
-	background: transparent;
+	background: transparent;}
+.icon:hover {
+	transition-duration: 550ms;
+	color: white;}
 
+
+
+
+
+/***************************POPUP CLASSES******************************/
+.popup {
+	position: absolute;
+	width: 75%;
+	height: 75%;
+	margin: auto;
+	background: blue;
+	top: 5%;
+	left: 12.5%;
+	z-index: 1000;
+	}
+
+.hidden {
+	display: none;
+}
+#game_cover {
+	position: absolute;
+	top: 20px;
+	width: 70%;
+	height: 400px;
+	background: blue;
+	margin: 0px auto;
+	border-radius: 2px;
+	z-index: 1000;
 }
