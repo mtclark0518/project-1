@@ -3,14 +3,14 @@ Project One README
 "Makin' Bacon"
 
 
-The User View.
+1. The User View.
 	Makin' Bacon is a "skill-shot/target practice" style game that is similar in functionality to NES DuckHunt. 
 
-	2 players take turns "shooting" targets(ideally: flying pigs) using a combination of aiming via the mouse cursor and firing with the spacebar. Players goal is to hit the most targets during a 30 second interval or "round".
+	two players take turns "shooting" targets(ideally: flying pigs) using a combination of aiming via the mouse cursor and firing with the spacebar. Players goal is to hit the most targets during a 30 second interval or "round".
 
 
 
-Functionality
+2. Functionality
 
 	Target Object
 		generate randomly
