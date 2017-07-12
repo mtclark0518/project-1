@@ -10,27 +10,26 @@ Project One README
 
 
 
-2. Functionality
+1. Functionality
+2.Target Object
+		3.generate randomly
+		3.move around the game space
+		3.vanish off game space if not hit by the player within a certain interval
 
-	Target Object
-		generate randomly
-		move around the game space
-		vanish off game space if not hit by the player within a certain interval
+2. Scoring
+		3.Scores are kept and displayed to the user. 
+		3.After two rounds the scores are compared 
+		3.the winner is posted via an alert popup
 
-3. Scoring
-		Scores are kept and displayed to the user. 
-		After two rounds the scores are compared 
-		the winner is posted via an alert popup
+2. Language Use
+		3.This will be completed entirely via front end technologies (html, css, jquery). Complicated use of functions such as setInterval, setTimeout, Math.{...} present the most obvious challenges.
 
-4. Language Use
-		This will be completed entirely via front end technologies (html, css and jquery). Complicated use of functions such as setInterval, setTimeout, Math.{...} present the most obvious challenges.
-
-5. Detecting a Hit
-		User triggers a keyup function on the spacebar, signifying a "shot"
-		At the time this event triggers, user is aiming via cursor position. Hovering over the target.
-			a.If hovering over an element with class ".target" 
-				a1.it will add the class ".hit" to the element (which will impact style)
-				a2.If the hovered element does not have the class ".target", It will register shot as miss.(total shots will be tracked for stretch goals).
+2. Detecting a Hit
+		3.User triggers a keyup function on the spacebar, signifying a "shot"
+		3.At the time this event triggers, user is aiming via cursor position. Hovering over the target.
+			3.If hovering over an element with class ".target" 
+				4.it will add the class ".hit" to the element (which will impact style)
+				4.If the hovered element does not have the class ".target", It will register shot as miss.(total shots will be tracked for stretch goals).
 
 ---
 
