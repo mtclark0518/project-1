@@ -1,15 +1,40 @@
-# ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Project #1: The Game
+Project One README
 
-### Overview
+"Makin' Bacon"
 
-Let's start out with something fun - **a game!**
 
-Everyone will get a chance to **be creative**, and work through some really **tough programming challenges** – since you've already gotten your feet wet with Tic Tac Toe, it's up to you to come up with a fun and interesting game to build.
+The User View.
+	Makin' Bacon is a "skill-shot/target practice" style game that is similar in functionality to NES DuckHunt. 
 
-**You will be working individually for this project**, but we'll be guiding you along the process and helping as you go. Show us what you've got!
+	2 players take turns "shooting" targets(ideally: flying pigs) using a combination of aiming via the mouse cursor and firing with the spacebar. Players goal is to hit the most targets during a 30 second interval or "round".
 
+
+
+Functionality
+
+	Target Object
+		generate randomly
+		move around the game space
+		vanish off game space if not hit by the player within a certain interval
+
+	Scoring
+		Scores are kept and displayed to the user. 
+		After two rounds the scores are compared 
+		the winner is posted via an alert popup
+
+	Language Use
+		This will be completed entirely via front end technologies (html, css and jquery). Complicated use of functions such as setInterval, setTimeout, Math.{...} present the most obvious challenges.
+
+	Detecting a Hit
+		User triggers a keyup function on the spacebar, signifying a "shot"
+		At the time this event triggers, user is aiming via cursor position. Hovering over the target.
+			If hovering over an element with class ".target" 
+				it will add the class ".hit" to the element (which will impact style)
+				If the hovered element does not have the class ".target", It will register shot as a miss.(total shots will be tracked for stretch goals).
 
 ---
+
+Project requirments listed below:
 
 ### Technical Requirements
 
