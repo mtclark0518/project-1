@@ -52,19 +52,35 @@ function Target(type){
 	this.speed = Math.floor(Math.random() * 3) + 1;
 	this.lifespan = (Math.floor(Math.random() * 9) + 5) * 1000;
 	this.value = Math.floor(this.speed * 2 );
+
+
+
 }
-
-/////////RETURNS A RANDOM NUM OF MS/////////////////
-
-Target.prototype.create = function(){	
+Target.prototype.create = function(){
+	var reset;
 	var target = document.createElement('div');
 	var gameSpace = document.getElementById('gameSpace');
 	gameSpace.appendChild(target);
 	target.classList.add('target');
+	target.classList.add(this.type);
 	target.addEventListener("click", function(){
 	alert("you clicked a target");
 	});
 };
+
+// Target.prototype.create = function(){	
+// 	var reset;
+// 	var target = document.createElement('div');
+// 	var gameSpace = document.getElementById('gameSpace');
+// 	gameSpace.appendChild(target);
+// 	target.classList.add('target');
+// 	target.classList.add(this.type);
+// 	target.addEventListener("click", function(){
+// 	alert("you clicked a target");
+// 	reset = setTimeout(this.create, (Math.floor(Math.random()*(10-4+1))+4));
+// 	alert("newtarget spawned");
+// 	});
+// };
 
 
 
@@ -80,9 +96,18 @@ function RandomNumber(min, max){
 }
 
 
-var thisLilPiggy = new Target("standard");
-console.log(thisLilPiggy);
+
 	
+
+///////// TARGET FUNCTIONALITY ////////////
+
+var spawn = function(){
+	var thisLilPiggy =  new Target("standard");
+	var birthRate = (Math.floor(Math.random() * 4) + 3) * 1000;
+	setTimeout(function(){thisLilPiggy.create();}, birthRate);
+	console.log(birthRate);
+
+}; 
 
 
 ///////// PLAYER OBJECT CONSTRUCTOR //////////
@@ -91,12 +116,8 @@ console.log(thisLilPiggy);
 
 
 
-///////// BEGINS JQUERY CODING  ////////////
+/////////  JQUERY READY FUNCTIO CODING  ////////////
 $(function(){
-
-
-
-
 ///////// POPUP FUNCTIONALITY ////////////
 
 	$("#triggerInstructions").click(function(){
@@ -114,12 +135,8 @@ $(function(){
 		});
 	});
 
-var gameSummary = function(){
-	$("#game_recap").toggleClass("hidden");
-};
-
-
-
-
+	var gameSummary = function(){
+		$("#game_recap").toggleClass("hidden");
+	};		
 
 });
