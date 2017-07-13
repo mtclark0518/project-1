@@ -1,9 +1,13 @@
 
 
+
+
+
 ///////// TIMEKEEPING LOGIC ---VANILLA JS  ////////////
 var tm;
 var rnd;
 var round = 0;
+
 
 //3 second timer before players round begins//
 var readySetGo = function(){
@@ -22,29 +26,26 @@ var countDown = function(){
 		setTimeout(countDown, 1250);}};
 	
 
-//Timer keeping track of time remaining in a given players round
+//Timer keeping track of time remaining in a given players round// Starts spawning targets
 var playerRound = function(){
 	rnd = 30;
 	setTimeout(gameClock, 1000);};
 
 var gameClock = function(){
 	if(rnd === 0){
-				
-				console.log("buzz");
-				if(round === 2){
-					alert("game over");
-					gameSummary();
-					return;
-				}else{
-					setTimeout(readySetGo, 1000);}
-		
+		console.log("buzz");
+		if(round === 2){
+			alert("game over");
+			gameSummary();
+			return;
+		}else{setTimeout(readySetGo, 1000);}
 	}else{
 		console.log(rnd);
 		rnd--;
 		setTimeout(gameClock, 1000);
 	}
-	
 };
+
 ///////// TARGET OBJECT CONSTRUCTOR //////////
 function Target(type){
 	this.type = type;
@@ -68,39 +69,8 @@ Target.prototype.create = function(){
 	});
 };
 
-// Target.prototype.create = function(){	
-// 	var reset;
-// 	var target = document.createElement('div');
-// 	var gameSpace = document.getElementById('gameSpace');
-// 	gameSpace.appendChild(target);
-// 	target.classList.add('target');
-// 	target.classList.add(this.type);
-// 	target.addEventListener("click", function(){
-// 	alert("you clicked a target");
-// 	reset = setTimeout(this.create, (Math.floor(Math.random()*(10-4+1))+4));
-// 	alert("newtarget spawned");
-// 	});
-// };
-
-
-
-
-///////// RETURNS A RANDOM NUM BTWN TWO VALUES/////////////////
-
-
-function RandomNumber(min, max){
-	min = Math.ceil(min);
-	max = Math.floor(max);
-	var answer = Math.floor(Math.random() * (max - min + 1)) + min;
-	console.log(answer);
-}
-
-
-
-	
-
 ///////// TARGET FUNCTIONALITY ////////////
-
+//creates a new target and appends to gamespace between 3 - 6 seconds
 var spawn = function(){
 	var thisLilPiggy =  new Target("standard");
 	var birthRate = (Math.floor(Math.random() * 4) + 3) * 1000;
@@ -108,7 +78,6 @@ var spawn = function(){
 	console.log(birthRate);
 
 }; 
-
 
 ///////// PLAYER OBJECT CONSTRUCTOR //////////
 
