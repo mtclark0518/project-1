@@ -1,15 +1,22 @@
 
 
 
-
-
-///////// TIMEKEEPING LOGIC ---VANILLA JS  ////////////
 var tm;
 var rnd;
+var numOfTargets = 0;
 var round = 0;
+var startSpawning;
+var stopSpawning;
+var spawnInterval;
+
+//////////////////////////////////////////////
+//////////////////////////////////////////////
+//////////////  TIMEKEEPING  /////////////////
+//////////////////////////////////////////////
+//////////////////////////////////////////////
 
 
-//3 second timer before players round begins//
+//3 second timer before players round begins
 var readySetGo = function(){
 	tm = 3;
 	alert("Ready?");
@@ -19,6 +26,7 @@ var readySetGo = function(){
 var countDown = function(){
 	if(tm === 0){
 		console.log("start shootin");
+		startSpawning();
 		playerRound();
 	}else{
 		console.log(tm);
@@ -33,6 +41,7 @@ var playerRound = function(){
 
 var gameClock = function(){
 	if(rnd === 0){
+		stopSpawning();
 		console.log("buzz");
 		if(round === 2){
 			alert("game over");
@@ -46,17 +55,21 @@ var gameClock = function(){
 	}
 };
 
-///////// TARGET OBJECT CONSTRUCTOR //////////
+//////////////////////////////////////////////
+//////////////////////////////////////////////
+////////////////  TARGETS  ///////////////////
+//////////////////////////////////////////////
+//////////////////////////////////////////////
+
+//object constructor
 function Target(type){
 	this.type = type;
 	this.isHit = false;
 	this.speed = Math.floor(Math.random() * 3) + 1;
 	this.lifespan = (Math.floor(Math.random() * 9) + 5) * 1000;
 	this.value = Math.floor(this.speed * 2 );
-
-
-
 }
+
 Target.prototype.create = function(){
 	var reset;
 	var target = document.createElement('div');
@@ -65,19 +78,32 @@ Target.prototype.create = function(){
 	target.classList.add('target');
 	target.classList.add(this.type);
 	target.addEventListener("click", function(){
-	alert("you clicked a target");
+		alert("you clicked a target");
 	});
 };
 
-///////// TARGET FUNCTIONALITY ////////////
-//creates a new target and appends to gamespace between 3 - 6 seconds
-var spawn = function(){
-	var thisLilPiggy =  new Target("standard");
-	var birthRate = (Math.floor(Math.random() * 4) + 3) * 1000;
-	setTimeout(function(){thisLilPiggy.create();}, birthRate);
-	console.log(birthRate);
+//target logic
+//creates a new target and appends to gamespace
+var newSpawn = function(){
+	var thisLilPiggy =  new Target("standard"); 
+	numOfTargets++;
+	console.log(numOfTargets);
+	setTimeout(function(){thisLilPiggy.create();}, (((Math.random() * 4) + 3) * 1000));
+};
 
-}; 
+//calls the newSpawn function on an interval every 3-6 seconds
+startSpawning = function(){
+	spawnInterval = setInterval(newSpawn, 2500);
+};
+//stop creating targets
+stopSpawning = function(){
+	window.clearInterval(spawnInterval);
+	$resetBoard();
+};
+var $resetBoard = function(){
+	var $allTargets = $(".target");
+	$allTargets.remove();
+	};
 
 ///////// PLAYER OBJECT CONSTRUCTOR //////////
 
