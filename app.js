@@ -11,6 +11,7 @@ var spawnInterval;
 var $resetBoard;
 var $gameSummary;
 var newSpawn;
+var $playerReady;
 
 //////////////////////////////////////////////
 //////////////////////////////////////////////
@@ -27,6 +28,7 @@ var readySetGo = function(){
 	setTimeout(countDown, 1000);};
 	
 var countDown = function(){
+	$playerReady();
 	if(tm === 0){
 		console.log("start shootin");
 		startSpawning();
@@ -86,7 +88,7 @@ Target.prototype.create = function(){
 };
 
 //target logic
-//creates a new target and appends to gamespace
+//creates a new target spawn and appends to gamespace after 3-6 seconds
 newSpawn = function(){
 	var thisLilPiggy =  new Target("standard"); 
 	numOfTargets++;
@@ -94,7 +96,7 @@ newSpawn = function(){
 	setTimeout(function(){thisLilPiggy.create();}, (((Math.random() * 4) + 3) * 1000));
 };
 
-//calls the newSpawn function on an interval every 3-6 seconds
+//calls the newSpawn function on an interval every 2.5 seconds
 startSpawning = function(){
 	spawnInterval = setInterval(newSpawn, 2500);
 };
@@ -107,11 +109,20 @@ stopSpawning = function(){
 $resetBoard = function(){
 	var $allTargets = $(".target");
 	$allTargets.remove();
-	};
+};
 
-///////// PLAYER OBJECT CONSTRUCTOR //////////
+//////////////////////////////////////////////
+//////////////////////////////////////////////
+////////////////  PLAYERS  ///////////////////
+//////////////////////////////////////////////
+//////////////////////////////////////////////
 
-
+//object constructor
+function Player() {
+	this.score = score;
+	this.shotCount = shotCount;
+	this.myTurn = myTurn;
+}
 
 
 
@@ -133,7 +144,16 @@ $(function(){
 			readySetGo();
 		});
 	});
-
+	$playerReady = function(){
+		var $time = tm;
+		var $clock = $('<div>').appendTo("body");
+		$clock.addClass("clock");
+		$clock.text($time);
+		if($time === 0){
+			$(".clock").remove();
+		}
+	};
+	
 	$gameSummary = function(){
 		$("#game_recap").toggleClass("hidden");
 	};		
