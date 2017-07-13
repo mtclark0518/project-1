@@ -1,18 +1,59 @@
-
-///////// GLOBAL GAMEPLAY SETTINGS ////////////
-var n = 3;
-var timer = setInterval(countDown, 1000);
-
-function countDown(){
-	n--;
-	if(n === 0){
-		clearInterval(timer);
-	}
-	console.log(n);
-}
-
-
 $(function(){
+
+///////// TIMEKEEPING LOGIC ---VANILLA JS  ////////////
+var tm;
+var rnd;
+var round = 0;
+
+//3 second timer before players round begins//
+var readySetGo = function(){
+	tm = 3;
+	alert("Ready?");
+	round++;
+	setTimeout(countDown, 1000);};
+	
+var countDown = function(){
+	if(tm === 0){
+		console.log("start shootin");
+		playerRound();
+	}else{
+		console.log(tm);
+		tm--;
+		setTimeout(countDown, 1250);}};
+	
+
+//Timer keeping track of time remaining in a given players round
+var playerRound = function(){
+	rnd = 30;
+	setTimeout(gameClock, 1000);};
+
+var gameClock = function(){
+	if(rnd === 0){
+				
+				console.log("buzz");
+				if(round === 2){
+					alert("game over");
+					return;
+				}else{
+					setTimeout(readySetGo, 1000);}
+		
+	}else{
+		console.log(rnd);
+		rnd--;
+		setTimeout(gameClock, 1000);
+	}
+	
+};
+///////// TARGET OBJECT CONSTRUCTOR //////////
+
+var Targets = function(){
+
+};
+
+///////// BEGINS JQUERY CODING  ////////////
+
+
+
 
 
 ///////// POPUP FUNCTIONALITY ////////////
@@ -28,13 +69,13 @@ $(function(){
 	$("#triggerPlay").click(function(){
 		$("#game_cover").fadeOut('1500ms',function(){
 			$(this).addClass("hidden");
-			setTimeout(function(){ alert("Player One: You're Up Bitch"); }, 1000);
+			readySetGo();
 		});
 	});
 	
 
 
-///////// TARGET OBJECTS //////////
+
 
 
 
