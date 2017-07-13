@@ -1,4 +1,4 @@
-
+$(function(){
 
 ///////// TIMEKEEPING LOGIC ---VANILLA JS  ////////////
 var tm;
@@ -33,6 +33,7 @@ var gameClock = function(){
 				console.log("buzz");
 				if(round === 2){
 					alert("game over");
+					gameSummary();
 					return;
 				}else{
 					setTimeout(readySetGo, 1000);}
@@ -45,23 +46,24 @@ var gameClock = function(){
 	
 };
 ///////// TARGET OBJECT CONSTRUCTOR //////////
-function Target(speed, index, lifespan, alive){
+function Target(speed, lifespan,flightPath, alive){
 	this.speed = speed;
-	this.index = index;
 	this.lifespan = lifespan;
+	this.flightPath = flightPath;
 	this.alive = alive;
-
-
-	
 }
 Target.prototype.create = function(){	
 		var target = document.createElement('div');
 		var gameSpace = document.getElementById('gameSpace');
 		gameSpace.appendChild(target);
 		target.classList.add('target');
-
-		// $target.click(function(){alert("you clicked a target");});
+		target.addEventListener("click", function(){
+			alert("you clicked a target");
+		});
 };
+function randomNum(){
+	return Math.random();
+}
 var thisLilPiggy = new Target(10, 1, 100, true);
 ///////// PLAYER OBJECT CONSTRUCTOR //////////
 //  
@@ -69,7 +71,7 @@ var thisLilPiggy = new Target(10, 1, 100, true);
 ///////// BEGINS JQUERY CODING  ////////////
 
 
-$(function(){
+
 
 
 ///////// POPUP FUNCTIONALITY ////////////
@@ -88,19 +90,10 @@ $(function(){
 			readySetGo();
 		});
 	});
-	
 
-
-
-
-
-
-
-
-
-
-
-
+var gameSummary = function(){
+	$("#game_recap").toggleClass("hidden");
+};
 
 
 
