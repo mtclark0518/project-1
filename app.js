@@ -1,4 +1,4 @@
-$(function(){
+
 
 ///////// TIMEKEEPING LOGIC ---VANILLA JS  ////////////
 var tm;
@@ -45,15 +45,31 @@ var gameClock = function(){
 	
 };
 ///////// TARGET OBJECT CONSTRUCTOR //////////
+function Target(speed, index, lifespan, alive){
+	this.speed = speed;
+	this.index = index;
+	this.lifespan = lifespan;
+	this.alive = alive;
 
-var Targets = function(){
 
+	
+}
+Target.prototype.create = function(){	
+		var target = document.createElement('div');
+		var gameSpace = document.getElementById('gameSpace');
+		gameSpace.appendChild(target);
+		target.classList.add('target');
+
+		// $target.click(function(){alert("you clicked a target");});
 };
+var thisLilPiggy = new Target(10, 1, 100, true);
+///////// PLAYER OBJECT CONSTRUCTOR //////////
+//  
 
 ///////// BEGINS JQUERY CODING  ////////////
 
 
-
+$(function(){
 
 
 ///////// POPUP FUNCTIONALITY ////////////
@@ -73,7 +89,6 @@ var Targets = function(){
 		});
 	});
 	
-
 
 
 

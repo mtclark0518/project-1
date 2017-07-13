@@ -168,5 +168,11 @@ div#lightbox {
 	padding-bottom: 15px;
 	margin: 0 auto;
 }
+/***************************TARGET OBJECT******************************/
+div.target {
+	width: 25px;
+	height: 25px;
+	background: pink;
+}
 
 
