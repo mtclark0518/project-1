@@ -8,6 +8,9 @@ var round = 0;
 var startSpawning;
 var stopSpawning;
 var spawnInterval;
+var $resetBoard;
+var $gameSummary;
+var newSpawn;
 
 //////////////////////////////////////////////
 //////////////////////////////////////////////
@@ -45,7 +48,7 @@ var gameClock = function(){
 		console.log("buzz");
 		if(round === 2){
 			alert("game over");
-			gameSummary();
+			$gameSummary();
 			return;
 		}else{setTimeout(readySetGo, 1000);}
 	}else{
@@ -84,7 +87,7 @@ Target.prototype.create = function(){
 
 //target logic
 //creates a new target and appends to gamespace
-var newSpawn = function(){
+newSpawn = function(){
 	var thisLilPiggy =  new Target("standard"); 
 	numOfTargets++;
 	console.log(numOfTargets);
@@ -100,7 +103,8 @@ stopSpawning = function(){
 	window.clearInterval(spawnInterval);
 	$resetBoard();
 };
-var $resetBoard = function(){
+//removes targets from the gamespace
+$resetBoard = function(){
 	var $allTargets = $(".target");
 	$allTargets.remove();
 	};
@@ -111,7 +115,7 @@ var $resetBoard = function(){
 
 
 
-/////////  JQUERY READY FUNCTIO CODING  ////////////
+/////////  JQUERY DOC READY CODING  ////////////
 $(function(){
 ///////// POPUP FUNCTIONALITY ////////////
 
@@ -130,7 +134,7 @@ $(function(){
 		});
 	});
 
-	var gameSummary = function(){
+	$gameSummary = function(){
 		$("#game_recap").toggleClass("hidden");
 	};		
 
