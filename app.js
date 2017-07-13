@@ -1,4 +1,4 @@
-$(function(){
+
 
 ///////// TIMEKEEPING LOGIC ---VANILLA JS  ////////////
 var tm;
@@ -46,30 +46,53 @@ var gameClock = function(){
 	
 };
 ///////// TARGET OBJECT CONSTRUCTOR //////////
-function Target(speed, lifespan,flightPath, alive){
-	this.speed = speed;
-	this.lifespan = lifespan;
-	this.flightPath = flightPath;
-	this.alive = alive;
+function Target(type){
+	this.type = type;
+	this.isHit = false;
+	this.speed = Math.floor(Math.random() * 3) + 1;
+	this.lifespan = (Math.floor(Math.random() * 9) + 5) * 1000;
+	this.value = Math.floor(this.speed * 2 );
 }
+
+/////////RETURNS A RANDOM NUM OF MS/////////////////
+
 Target.prototype.create = function(){	
-		var target = document.createElement('div');
-		var gameSpace = document.getElementById('gameSpace');
-		gameSpace.appendChild(target);
-		target.classList.add('target');
-		target.addEventListener("click", function(){
-			alert("you clicked a target");
-		});
+	var target = document.createElement('div');
+	var gameSpace = document.getElementById('gameSpace');
+	gameSpace.appendChild(target);
+	target.classList.add('target');
+	target.addEventListener("click", function(){
+	alert("you clicked a target");
+	});
 };
-function randomNum(){
-	return Math.random();
+
+
+
+
+///////// RETURNS A RANDOM NUM BTWN TWO VALUES/////////////////
+
+
+function RandomNumber(min, max){
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	var answer = Math.floor(Math.random() * (max - min + 1)) + min;
+	console.log(answer);
 }
-var thisLilPiggy = new Target(10, 1, 100, true);
+
+
+var thisLilPiggy = new Target("standard");
+console.log(thisLilPiggy);
+	
+
+
 ///////// PLAYER OBJECT CONSTRUCTOR //////////
-//  
+
+
+
+
 
 ///////// BEGINS JQUERY CODING  ////////////
-
+$(function(){
 
 
 
