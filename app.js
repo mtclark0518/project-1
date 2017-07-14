@@ -6,6 +6,7 @@ var round = 0;
 var tm;
 var rnd;
 var numOfTargets;
+var presented;
 
 
 var startSpawning;
@@ -20,15 +21,13 @@ var $displayTimeRemaining;
 var $displayScore;
 var $resetBoard;
 var $gameSummary;
+var $updatePlayerReady;
+var $allTargets;
 
 
-//////////////////////////////////////////////
-//////////////////////////////////////////////
-//////////////  TIMEKEEPING  /////////////////
-//////////////////////////////////////////////
-//////////////////////////////////////////////,
 
-//3 second timer before players round begins
+
+//Game Constructor
 var game = {
 	myTurn : myTurn,
 	round : round,
@@ -37,8 +36,18 @@ var game = {
 	numOfTargets : numOfTargets || 0
 };
 
+//////////////////////////////////////////////
+//////////////////////////////////////////////
+//////////////  TIMEKEEPING  /////////////////
+//////////////////////////////////////////////
+//////////////////////////////////////////////,
+
+//3 second timer before players round begins
+
+
 var readySetGo = function(){
 	$removeTargets();
+	$updateScore();
 	if(game.round === 1){
 		game.myTurn = "player2"; ////////SET ACTIVE PLAYER = PLAYER2
 		player1.isActive = false;
@@ -51,9 +60,9 @@ var readySetGo = function(){
 	}else if(game.round >= 2){
 
 		game.round = 0;
-		player1.score = 0;
-		player2.score = 0;
-		console.log("time for a new game. round " + round + ". the score is " + $p1Score + ":" + $p2Score);
+		// player1.score = 0;
+		// player2.score = 0;
+		console.log("time for a new game. round " + round + ". the score is " + player1.score + ":" + player2.score);
 		
 
 		game.myTurn = "player1";
@@ -123,7 +132,8 @@ function Target(type){
 	this.type = type;
 	this.isHit = false;
 	this.speed = Math.floor(Math.random() * 3) + 1;
-	this.lifespan = (Math.floor(Math.random() * 9) + 5) * 1000;
+	this.presented = presented || false;
+	this.lifespan = (Math.floor(Math.random() * 3) + 8) * 1000;
 	this.value = Math.floor(this.speed * 2 );
 }
 
@@ -133,8 +143,16 @@ Target.prototype.birthday = function(){
 	gameSpace.appendChild(target);
 	target.classList.add('target');
 	target.classList.add(this.type);
+	target.presented = true;
+	target.lifespan = setTimeout(function(){
+		if(target.presented === true){
+			target.remove();
+			console.log("target removed");
+		}
+		}, this.lifespan);
 	console.log("spawn is alive");
 	target.addEventListener("click", $iBeenShot);
+
 };
 
 //target logic
@@ -213,7 +231,7 @@ $(function(){
 		});
 	
 	$removeTargets = function(){
-		var $allTargets = $(".target");
+		$allTargets = $(".target");
 		$allTargets.remove();
 		game.numOfTargets = 0;
 	};
@@ -222,11 +240,17 @@ $(function(){
 		var $time = game.tm;
 		var $clock = $('<div>').appendTo("body");
 		$clock.addClass("clock");
-		
 		$clock.text($time);
 		if($time === 0){
 			$(".clock").remove();
-		}
+			}else{
+				$updatePlayerReady();
+			}
+
+	};
+	$updatePlayerReady = function(){
+		$(".clock").text(" ");
+		$(".clock").text(game.tm);
 	};
 	
 	$gameSummary = function(){
@@ -234,12 +258,14 @@ $(function(){
 		$summary.toggleClass("hidden");
 		$("<p>").addClass("summary").appendTo($summary);
 		if(player1.score === player2.score){
-			$(".summary").text("Its a Tie");
+			$(".summary").text("Its a Tie");	
 		}else if (player1.score > player2.score){
 			$(".summary").text("Player 1 Wins");
 		}else{
 			$(".summary").text("Player 2 Wins");
 		}
+		player1.score = 0;
+		player2.score = 0;
 	};		
 
 	$displayTimeRemaining = function(){
@@ -271,7 +297,7 @@ $(function(){
 			console.log("Player1 Score: " + player1.score);
 		} else if(game.myTurn === "player2"){
 			player2.score++;
-			updateScore();
+			$updateScore();
 			player2.shotCount++;
 			console.log("Player2 Score: " + player2.score);
 		}
