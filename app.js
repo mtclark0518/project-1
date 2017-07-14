@@ -25,8 +25,11 @@ var $shotsFired;
 //3 second timer before players round begins
 var readySetGo = function(){
 	$removeTargets();
-	if(round === 1){
+	if(round >= 2){
+		round = 0;
+	}else if(round === 1){
 		alert("player 2 you're up");
+		////////SWITCH ACTIVE PLAYER
 		tm = 3;
 		round++;
 		setTimeout(countDown, 1000);
@@ -131,14 +134,7 @@ newSpawn = function(){
 
 
 //////////////////////////////////////////////
-//How many targets released per game
-//		estimate 15
-//		create inerval runs fast as fuck
-//			stops when target count reachs 15
 
-
-//		the random timeout to append newly spawned targets  
-		//takes a much larger time interval picks timeout to ren//
 
 		//create conditional sections 
 			//such as
@@ -183,17 +179,22 @@ $(function(){
 		});
 	});
 	
+	$("#reset").click(function(){
+			$gameSummary();
+			readySetGo();
+		});
+	
 	$removeTargets = function(){
 		var $allTargets = $(".target");
 		$allTargets.remove();
 		numOfTargets = 0;
-		tm = 3;
-};
+	};
 
 	$playerReady = function(){
 		var $time = tm;
 		var $clock = $('<div>').appendTo("body");
 		$clock.addClass("clock");
+		
 		$clock.text($time);
 		if($time === 0){
 			$(".clock").remove();
@@ -202,7 +203,6 @@ $(function(){
 	
 	$gameSummary = function(){
 		$("#game_recap").toggleClass("hidden");
-		round = 0;
 	};		
 
 	$displayTimeRemaining = function(){
@@ -212,15 +212,5 @@ $(function(){
 	};
 
 	
-	$playAgainBtn = function(){
-		var $resetBtn = $("button#reset");
-		$resetBtn.click(function(){
-			$gameSummary();
-			$readySetGo();
-		});
-	};	
-
-
-
 
 });

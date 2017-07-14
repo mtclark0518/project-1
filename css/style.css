@@ -12,15 +12,15 @@ body {
 #nav {
 	position: fixed;
 	top: 0px;
-	height: 85px;
+	height: 45px;
 	width: 100%;
-	background: linear-gradient(to left, #331C14, #D73836, #CC4361);
+	background: linear-gradient(to left, #331C14, white, #CC4361);
 	text-align: center;
 	z-index: 150;
 }
 nav img {
 	float: left;
-	padding-top: 35px;
+	padding-top: 15px;
 	padding-left: 20px;
 
 }
@@ -28,7 +28,7 @@ span#nav_head{
 	display: inline-block;
 	font-family: 'Amatica SC', cursive;
 	font-weight: 700;
-	font-size: 3em;
+	font-size: 1.5em;
 	margin: auto;
 	vertical-align: text-top;
 	padding-top: 15px;
@@ -39,9 +39,10 @@ span#nav_head{
 
 .section {
 	position: relative;
-	top: 85px;
+	top: 45px;
 	width: 80%;
 	margin: 0px auto;
+	padding-top: 40px;
 	background: rgba(25, 24, 23, 1.0);
 
 }
@@ -68,13 +69,6 @@ span#nav_head{
 	background: rgba(127, 132, 252, .7);
 	right: 25px;
 }
-div#round_time_container {
-	position: absolute;
-	top: 0px;
-	background: red;
-	width: 100%;
-	height: 50px;
-}
 
 .sb_label{
 	height: 20px;
@@ -84,6 +78,7 @@ div#round_time_container {
 	background: rgba();
 
 }
+
 .score {
 	width: 100%;
 	height: 80px;
@@ -92,6 +87,18 @@ div#round_time_container {
 	font-size: 1.5em;
 	background: black;
 	color: white;
+}
+div#round_time{
+	width: 8%;
+	margin: 0 46%;
+}
+div#round_time div.sb_label{
+	font-size: .6em;
+}
+div#round_time_display {
+	height: 40px;
+	background: red;
+	width: 100%;
 }
 
 .button_container {
@@ -127,7 +134,7 @@ footer {
 	height: 50px;
 	bottom: 0px;
 	width: 100%;
-	background: linear-gradient(to right, #331C14, #D73836, #CC4361);
+	background: linear-gradient(to right, #331C14, white, #CC4361);
 	z-index: 150;
 }	
 	
@@ -207,8 +214,8 @@ footer {
 	color: white;
 	box-shadow: 0 0 45px 4em rgba(0,0,0,.7);
 	width: 100%;
-/*	left: 10%;
-*/	z-index: 600;
+	/*	left: 10%; */	
+	z-index: 600;
 }
 /***************************TARGET OBJECT******************************/
 div.target {
@@ -231,6 +238,5 @@ div.target {
 	text-align: center;
 	font-size: 50px;
 	}
-.clock 
 
 
