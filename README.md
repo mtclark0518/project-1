@@ -1,27 +1,32 @@
 Project One README
 
---------------------"Makin' Bacon"--------------------
+### --------------------"Makin' Bacon"--------------------
 
-		  ----Version 0-----
+**----Version 0-----
 		  
-----------The User View----------
+### ----------The User View----------
 
 	Makin' Bacon is a "skill-shot/target practice" style game that is similar in functionality to NES DuckHunt.
 	Two players take turns "shooting" targets(ideally: flying pigs)
 	Gameplay uses a combination of aiming via the mouse cursor and firing with the spacebar.
 	User goal is to hit the most targets during a 30 second interval or "round".
 
-----------Language Use / Functionality Challenges ----------
+### ----------Language Use / Functionality Challenges ----------
+
 	Completed solely via front end technologies (html, css, js & jquery).
 	Challenges include use of functions such as setInterval, setTimeout, Math.{...}
 
---------------------Functionality--------------------
-----------Target Object----------
-	----Version 0-----
+### --------------------Functionality--------------------
+
+### ----------Target Object----------
+
+**----Version0-----
+	
 	Generate randomly
 	Vanish off game space if not hit by the player within a certain interval
 	
-	-----Stretch Goals-----
+**-----Stretch-Goals-----
+	
 		Move
 		Move at various speeds
 		Move at various trajectories
@@ -30,7 +35,8 @@ Project One README
 		Grow in "strength"
 		
 
-----------Timing & Scoring & Winning Condition----------
+### ----------Timing & Scoring & Winning Condition----------
+
 	Rounds last 30 seconds.
 	Target hits are worth varying point totals
 	Score is displayed around the perimeter of the game space.
@@ -39,16 +45,19 @@ Project One README
 	The winner is posted via an alert popup
 
 
-	-----Stretch Goals-----
+**-----Stretch-Goals-----
+	
 	Player accuracy impacts score.
 
-----------Detecting a Hit----------
-	----Version 0-----
+### ----------Detecting a Hit----------
+	
+**----Version0-----
+	
 	User clicks on target to take a shot.
 	If click event is registered by the target it will trigger a hit function.
 	The target will dissapear and the Player will get receive points.
 	
-	-----Stretch Goals-----
+**-----Stretch-Goals-----
 
 	User triggers a keyup function on the spacebar, signifying a "shot"
 	At the time this event triggers, user is aiming via cursor position. Hovering over the target
@@ -62,7 +71,7 @@ Project One README
 	Weapons register unique css animations. 
 	
 
-Project requirments listed below:
+** Project requirments listed below:
 
 ### Technical Requirements
 
