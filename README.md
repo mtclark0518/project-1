@@ -1,62 +1,65 @@
 Project One README
 
-"Makin' Bacon"
-
-
-1. The User View.
+--------------------"Makin' Bacon"--------------------
+		  ----Version 0-----
+----------The User View----------
 	Makin' Bacon is a "skill-shot/target practice" style game that is similar in functionality to NES DuckHunt. 
 	Two players take turns "shooting" targets(ideally: flying pigs) 
 	Gameplay uses a combination of aiming via the mouse cursor and firing with the spacebar. 
 	User goal is to hit the most targets during a 30 second interval or "round".
 
-2. Functionality
 
-<<<<<<< HEAD
-3. Target Object
-		generate randomly-----------
-		move around the game space-----------
-		vanish off game space if not hit by the player within a certain interval-----------
+----------Language Use / Functionality Challenges ----------
+	Completed solely via front end technologies (html, css, js & jquery). 
+	Challenges include use of functions such as setInterval, setTimeout, Math.{...}
 
-4. Scoring
-	Scores are kept and displayed to the user. -----------
-	After two rounds the scores are compared -----------
-	the winner is posted via an alert popup-----------
+--------------------Functionality--------------------
 
-5. Language Use
-	This will be completed entirely via front end technologies (html, css, jquery). Complicated use of functions such as setInterval, setTimeout, Math.{...} present the most obvious challenges.
-
-6. Detecting a Hit
-	User triggers a keyup function on the spacebar, signifying a "shot"-----------
-	At the time this event triggers, user is aiming via cursor position. Hovering over the target.-----------
-		If hovering over an element with class ".target" -----------
-			-----------it will add the class ".hit" to the element (which will impact style)
-			-----------If the hovered element does not have the class ".target", It will register shot as miss.(total shots will be tracked for stretch goals).
-=======
-	Target Object
-		Generate randomly
-		Move around the game space
-		Vanish off game space if not hit by the player within a certain interval
-
-	 Scoring
-		Scores are kept and displayed to the user. 
-		After two rounds the scores are compared 
-		The winner is posted via an alert popup
-
-	Language Use
-		This will be completed entirely via front end technologies (html, css and jquery). 
-		Complicated use of functions such as setInterval, setTimeout, Math.{...} present the most obvious challenges.
-
-	Detecting a Hit
-		User triggers a keyup function on the spacebar, signifying a "shot"
-		At the time this event triggers, user is aiming via cursor position. Hovering over the target.
+----------Target Object----------
+	----Version 0-----
+	Generate randomly
+	Vanish off game space if not hit by the player within a certain interval
 		
-		If hovering over an element with class ".target"	
-			It will add the class ".hit" to the element (which will impact style)
-			If the hovered element does not have the class ".target", It will register shot as miss.
-				Total shots will be tracked for stretch goals.
->>>>>>> a512b456a8a96c5ce687750a5c932b7ba853e5e1
+	-----Stretch Goals-----
+		Move
+		Move at various speeds
+		Move at various trajectories
+		Move at varying speeds
+		Move at varying trajectories
+		Grow in "strength"
+		
 
----
+----------Timing & Scoring & Winning Condition----------
+	Rounds last 30 seconds.
+	Target hits are worth varying point totals
+	Score is displayed around the perimeter of the game space.
+	After two rounds the scores are compared 
+	Whoever scores the most wins
+	The winner is posted via an alert popup
+
+
+	-----Stretch Goals-----
+	Player accuracy impacts score.
+
+----------Detecting a Hit----------
+	----Version 0-----
+	User clicks on target to take a shot.
+	If click event is registered by the target it will trigger a hit function.
+	The target will dissapear and the Player will get receive points.
+	
+	-----Stretch Goals-----
+
+	User triggers a keyup function on the spacebar, signifying a "shot"
+	At the time this event triggers, user is aiming via cursor position. Hovering over the target
+	If hovering over an element with class ".target" 
+		it will add the class ".hit" to the element (which will impact style)
+		If the hovered element does not have the class ".target", It will register shot as miss.
+		(total shots will be tracked for stretch goals).
+	Hits register damage rather than kill.
+	Players can choose from a variety of weapons
+	Weapons have limited ammunition
+	Weapons register unique css animations. 
+	
 
 Project requirments listed below:
 
