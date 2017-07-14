@@ -17,6 +17,7 @@ var newSpawn;
 var $iBeenShot;
 var $playerReady;
 var $displayTimeRemaining;
+var $displayScore;
 var $resetBoard;
 var $gameSummary;
 
@@ -92,6 +93,7 @@ var countDown = function(){
 var playerRound = function(){
 	game.rnd = 30;
 	$displayTimeRemaining();
+	$displayScore();
 	setTimeout(gameClock, 1000);};
 
 var gameClock = function(){
@@ -105,6 +107,7 @@ var gameClock = function(){
 		console.log(game.rnd);
 		game.rnd--;
 		$displayTimeRemaining();
+		$displayScore();
 		setTimeout(gameClock, 1000);
 	}
 };
@@ -227,7 +230,16 @@ $(function(){
 	};
 	
 	$gameSummary = function(){
-		$("#game_recap").toggleClass("hidden");
+		var $summary = $("#game_recap");
+		$summary.toggleClass("hidden");
+		$("<p>").addClass("summary").appendTo($summary);
+		if(player1.score === player2.score){
+			$(".summary").text("Its a Tie");
+		}else if (player1.score > player2.score){
+			$(".summary").text("Player 1 Wins");
+		}else{
+			$(".summary").text("Player 2 Wins");
+		}
 	};		
 
 	$displayTimeRemaining = function(){
@@ -236,23 +248,34 @@ $(function(){
 		$roundTimeDisplay.text($rndTm);
 	};
 	$displayScore = function(){
-		
+		$('#p1Sc').text(player1.score);
+		$('#p2Sc').text(player2.score);
+	};
+	$updateScore = function(){
+		$("#p1Sc").text(" ");
+		$("#p2Sc").text(" ");
+		$("#p1Sc").text(player1.score);
+		$("#p2Sc").text(player2.score);
 	};
 ///////// PLAYER/TARGET INTERACTIONS ////////////
 	$iBeenShot = function(){
 		console.log(this);
 		this.isHit = true;
 		this.lifespan = 0;
-		console.log(game.myTurn);
+		this.remove();
+		console.log("target removed");
 		if(game.myTurn === "player1"){
 			player1.score++;
+			$updateScore();
+			player1.shotCount++;
 			console.log("Player1 Score: " + player1.score);
 		} else if(game.myTurn === "player2"){
 			player2.score++;
+			updateScore();
+			player2.shotCount++;
 			console.log("Player2 Score: " + player2.score);
 		}
-		this.remove();
-		console.log("target removed");
+		
 	};
 
 	
