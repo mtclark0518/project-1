@@ -1,25 +1,26 @@
 Project One README
 
 --------------------"Makin' Bacon"--------------------
+
 		  ----Version 0-----
+		  
 ----------The User View----------
-	Makin' Bacon is a "skill-shot/target practice" style game that is similar in functionality to NES DuckHunt. 
-	Two players take turns "shooting" targets(ideally: flying pigs) 
-	Gameplay uses a combination of aiming via the mouse cursor and firing with the spacebar. 
+
+	Makin' Bacon is a "skill-shot/target practice" style game that is similar in functionality to NES DuckHunt.
+	Two players take turns "shooting" targets(ideally: flying pigs)
+	Gameplay uses a combination of aiming via the mouse cursor and firing with the spacebar.
 	User goal is to hit the most targets during a 30 second interval or "round".
 
-
 ----------Language Use / Functionality Challenges ----------
-	Completed solely via front end technologies (html, css, js & jquery). 
+	Completed solely via front end technologies (html, css, js & jquery).
 	Challenges include use of functions such as setInterval, setTimeout, Math.{...}
 
 --------------------Functionality--------------------
-
 ----------Target Object----------
 	----Version 0-----
 	Generate randomly
 	Vanish off game space if not hit by the player within a certain interval
-		
+	
 	-----Stretch Goals-----
 		Move
 		Move at various speeds
