@@ -14,7 +14,7 @@ var stopSpawning;
 var spawnInterval;
 var newSpawn;
 
-
+var $iBelieveICanFly;
 var $iBeenShot;
 var $playerReady;
 var $displayTimeRemaining;
@@ -132,8 +132,9 @@ function Target(type){
 	this.type = type;
 	this.isHit = false;
 	this.speed = Math.floor(Math.random() * 3) + 1;
+	this.flightPath = 0;
 	this.presented = presented || false;
-	this.lifespan = (Math.floor(Math.random() * 3) + 8) * 1000;
+	this.lifespan = (Math.floor(Math.random() * 6) + 5) * 1000;
 	this.value = Math.floor(this.speed * 2 );
 }
 
@@ -143,22 +144,23 @@ Target.prototype.birthday = function(){
 	gameSpace.appendChild(target);
 	target.classList.add('target');
 	target.classList.add(this.type);
+	console.log("spawn is alive");
+	target.animate({"left": "500px"}, 5000);
 	target.presented = true;
 	target.lifespan = setTimeout(function(){
 		if(target.presented === true){
 			target.remove();
 			console.log("target removed");
-		}
+			}
 		}, this.lifespan);
-	console.log("spawn is alive");
 	target.addEventListener("click", $iBeenShot);
 
 };
 
 //target logic
-//calls the newSpawn function on an interval at 5 per sec
+//calls the newSpawn function on an interval at 10 per sec
 startSpawning = function(){
-	spawnInterval = setInterval(newSpawn, 200); //spawning takes place quickly
+	spawnInterval = setInterval(newSpawn, 100); //spawning takes place quickly
 };
 //stop creating targets
 stopSpawning = function(){
@@ -170,7 +172,7 @@ newSpawn = function(){
 	game.numOfTargets++;
 
 	//set max number per round so players see the same total amount
-	if(game.numOfTargets === 15){
+	if(game.numOfTargets === 16){
 		stopSpawning();
 		console.log("all out of spawns");
 	}else{
@@ -230,6 +232,8 @@ $(function(){
 			readySetGo();
 		});
 	
+///////// VARIOUS FUNCTIONALITY ////////////
+
 	$removeTargets = function(){
 		$allTargets = $(".target");
 		$allTargets.remove();
@@ -284,6 +288,10 @@ $(function(){
 		$("#p2Sc").text(player2.score);
 	};
 ///////// PLAYER/TARGET INTERACTIONS ////////////
+	$iBelieveICanFly = function(){
+
+	};
+
 	$iBeenShot = function(){
 		console.log(this);
 		this.isHit = true;

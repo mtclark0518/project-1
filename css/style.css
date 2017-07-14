@@ -219,6 +219,8 @@ footer {
 }
 /***************************TARGET OBJECT******************************/
 div.target {
+	position: absolute;
+	left: 1px;
 	width: 25px;
 	height: 25px;
 	background: pink;
