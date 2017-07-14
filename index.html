@@ -29,14 +29,18 @@
 	Gameplay uses a combination of aiming via the mouse cursor and firing with the spacebar. 
 	User goal is to hit the most targets during a 30 second interval or "round".</p>
 			</div>
-			<div id="game_recap" class="popup hidden">
-				<button class="close button">X</button>
-				<button id="reset" class="close button">Play Again</button>
-			</div>
+			
 
 			<div class="section">
-				<div id="game_cover" class="popup hidden"></div>		
-				<div id="gameSpace"></div>
+				<div id="game_cover" class="popup hidden">
+				</div>		
+				<div id="gameSpace">
+					<div id="game_recap" class="popup hidden">
+						<button class="close button">X</button>						
+						<p></p>
+						<button id="reset" class="close button">Play Again</button>
+					</div>
+				</div>
 				<div class="scoreboard">
 					<div id="p1" class="sb_section">
 						<div class="sb_label">Player 1</div>
@@ -45,7 +49,7 @@
 					<div id="round_time_container">
 						<div id="round_time" class= "sb_section">
 							<div class="sb_label">Time Remaining</div>
-							<div class="score"></div>
+							<div id="round_time_display"class="score"></div>
 						</div>
 					</div>
 					<div id="p2" class="sb_section">

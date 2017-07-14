@@ -12,6 +12,8 @@ var $resetBoard;
 var $gameSummary;
 var newSpawn;
 var $playerReady;
+var $displayTimeRemaining;
+var $shotsFired;
 
 //////////////////////////////////////////////
 //////////////////////////////////////////////
@@ -51,6 +53,7 @@ var countDown = function(){
 //Timer keeping track of time remaining in a given players round// Starts spawning targets
 var playerRound = function(){
 	rnd = 30;
+	$displayTimeRemaining();
 	setTimeout(gameClock, 1000);};
 
 var gameClock = function(){
@@ -59,11 +62,11 @@ var gameClock = function(){
 		if(round === 2){
 			alert("Nice Game! Lets See Who Won");
 			$gameSummary();
-			return;
 		}else{setTimeout(readySetGo, 1500);}
 	}else{
 		console.log(rnd);
 		rnd--;
+		$displayTimeRemaining();
 		setTimeout(gameClock, 1000);
 	}
 };
@@ -83,8 +86,7 @@ function Target(type){
 	this.value = Math.floor(this.speed * 2 );
 }
 
-Target.prototype.create = function(){
-	var reset;
+Target.prototype.birthday = function(){
 	var target = document.createElement('div');
 	var gameSpace = document.getElementById('gameSpace');
 	gameSpace.appendChild(target);
@@ -92,39 +94,39 @@ Target.prototype.create = function(){
 	target.classList.add(this.type);
 	console.log("spawn is alive");
 	target.addEventListener("click", function(){
-		alert("you clicked a target");
+		console.log("you clicked a target");
+		$shotsFired();
 	});
 };
 
 //target logic
-//creates a new target spawn and appends to gamespace after 3-6 seconds
-newSpawn = function(){
-	var thisLilPiggy =  new Target("standard"); 
-	numOfTargets++;
-	if(numOfTargets === 16){
-		stopSpawning();
-		console.log("all out of spawns");
-	}else{
-		console.log(numOfTargets + " spawn");
-		//the release of each instance will take varying lengths of time spaced much longer
-		setTimeout(function(){thisLilPiggy.create();}, (((Math.random() * 16) + 1) * 1000));
-	}
-};
 
-//calls the newSpawn function on an interval every 2.5 seconds
+//calls the newSpawn function on an interval at 5 per sec
 startSpawning = function(){
-	spawnInterval = setInterval(newSpawn, 250); //spawning takes place quickly
+	spawnInterval = setInterval(newSpawn, 200); //spawning takes place quickly
 };
 //stop creating targets
 stopSpawning = function(){
 	window.clearInterval(spawnInterval);
 };
-//removes targets from the gamespace
-$removeTargets = function(){
-	var $allTargets = $(".target");
-	$allTargets.remove();
-	numOfTargets = 0;
+//creates a new target spawn and appends to gamespace
+newSpawn = function(){
+	var thisLilPiggy =  new Target("standard"); 
+	numOfTargets++;
+
+	//set max number per round so players see the same total amount
+	if(numOfTargets === 15){
+		stopSpawning();
+		console.log("all out of spawns");
+	}else{
+		console.log(numOfTargets);
+		//actually appending each instance will take varying lengths of time spaced out much longer
+		setTimeout(function(){thisLilPiggy.birthday();}, (((Math.random() * 20) + 1) * 1000));//appending between 1s -20s
+	}
 };
+
+//removes targets from the gamespace
+
 
 
 
@@ -180,6 +182,14 @@ $(function(){
 			readySetGo();
 		});
 	});
+	
+	$removeTargets = function(){
+		var $allTargets = $(".target");
+		$allTargets.remove();
+		numOfTargets = 0;
+		tm = 3;
+};
+
 	$playerReady = function(){
 		var $time = tm;
 		var $clock = $('<div>').appendTo("body");
@@ -192,6 +202,25 @@ $(function(){
 	
 	$gameSummary = function(){
 		$("#game_recap").toggleClass("hidden");
+		round = 0;
 	};		
+
+	$displayTimeRemaining = function(){
+		var $rndTm = rnd;
+		var $roundTimeDisplay = $("#round_time_display");
+		$roundTimeDisplay.text($rndTm);
+	};
+
+	
+	$playAgainBtn = function(){
+		var $resetBtn = $("button#reset");
+		$resetBtn.click(function(){
+			$gameSummary();
+			$readySetGo();
+		});
+	};	
+
+
+
 
 });
