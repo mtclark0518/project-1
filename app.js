@@ -5,15 +5,22 @@ var tm;
 var rnd;
 var numOfTargets = 0;
 var round = 0;
+
 var startSpawning;
 var stopSpawning;
 var spawnInterval;
-var $resetBoard;
-var $gameSummary;
 var newSpawn;
+
+var myTurn;
+
+var $shotsFired;
+var $p1Score;
+var $p2Score; 
 var $playerReady;
 var $displayTimeRemaining;
-var $shotsFired;
+var $resetBoard;
+var $gameSummary;
+
 
 //////////////////////////////////////////////
 //////////////////////////////////////////////
@@ -25,15 +32,30 @@ var $shotsFired;
 //3 second timer before players round begins
 var readySetGo = function(){
 	$removeTargets();
-	if(round >= 2){
-		round = 0;
-	}else if(round === 1){
+	if(round === 1){
+		myTurn = "player2"; ////////SET ACTIVE PLAYER = PLAYER2
+		console.log(myTurn + "'s turn");
 		alert("player 2 you're up");
-		////////SWITCH ACTIVE PLAYER
 		tm = 3;
 		round++;
 		setTimeout(countDown, 1000);
-	}else{
+	}else if(round >= 2){
+
+		round = 0;
+		$p1Score = 0;
+		$p2Score = 0;
+		console.log("time for a new game. round " + round + ". the score is " + $p1Score + ":" + $p2Score);
+		
+
+		myTurn = "player1";
+		console.log(myTurn + "'s turn");
+		alert("player 1 you're up");
+		tm = 3;
+		round++;
+		setTimeout(countDown, 1000);
+	}else{  //round currently = 0
+		myTurn = "player1";////////SET ACTIVE PLAYER = PLAYER1
+		console.log(myTurn + "'s turn");
 		alert("player 1 you're up");
 		tm = 3;
 		round++;
@@ -128,7 +150,6 @@ newSpawn = function(){
 	}
 };
 
-//removes targets from the gamespace
 
 
 
