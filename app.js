@@ -22,10 +22,19 @@ var $playerReady;
 
 //3 second timer before players round begins
 var readySetGo = function(){
-	tm = 3;
-	alert("Ready?");
-	round++;
-	setTimeout(countDown, 1000);};
+	$removeTargets();
+	if(round === 1){
+		alert("player 2 you're up");
+		tm = 3;
+		round++;
+		setTimeout(countDown, 1000);
+	}else{
+		alert("player 1 you're up");
+		tm = 3;
+		round++;
+		setTimeout(countDown, 1000);
+	}
+};
 	
 var countDown = function(){
 	$playerReady();
@@ -46,13 +55,12 @@ var playerRound = function(){
 
 var gameClock = function(){
 	if(rnd === 0){
-		stopSpawning();
 		console.log("buzz");
 		if(round === 2){
-			alert("game over");
+			alert("Nice Game! Lets See Who Won");
 			$gameSummary();
 			return;
-		}else{setTimeout(readySetGo, 1000);}
+		}else{setTimeout(readySetGo, 1500);}
 	}else{
 		console.log(rnd);
 		rnd--;
@@ -82,6 +90,7 @@ Target.prototype.create = function(){
 	gameSpace.appendChild(target);
 	target.classList.add('target');
 	target.classList.add(this.type);
+	console.log("spawn is alive");
 	target.addEventListener("click", function(){
 		alert("you clicked a target");
 	});
@@ -92,24 +101,51 @@ Target.prototype.create = function(){
 newSpawn = function(){
 	var thisLilPiggy =  new Target("standard"); 
 	numOfTargets++;
-	console.log(numOfTargets);
-	setTimeout(function(){thisLilPiggy.create();}, (((Math.random() * 4) + 3) * 1000));
+	if(numOfTargets === 16){
+		stopSpawning();
+		console.log("all out of spawns");
+	}else{
+		console.log(numOfTargets + " spawn");
+		//the release of each instance will take varying lengths of time spaced much longer
+		setTimeout(function(){thisLilPiggy.create();}, (((Math.random() * 16) + 1) * 1000));
+	}
 };
 
 //calls the newSpawn function on an interval every 2.5 seconds
 startSpawning = function(){
-	spawnInterval = setInterval(newSpawn, 2500);
+	spawnInterval = setInterval(newSpawn, 250); //spawning takes place quickly
 };
 //stop creating targets
 stopSpawning = function(){
 	window.clearInterval(spawnInterval);
-	$resetBoard();
 };
 //removes targets from the gamespace
-$resetBoard = function(){
+$removeTargets = function(){
 	var $allTargets = $(".target");
 	$allTargets.remove();
+	numOfTargets = 0;
 };
+
+
+
+//////////////////////////////////////////////
+//How many targets released per game
+//		estimate 15
+//		create inerval runs fast as fuck
+//			stops when target count reachs 15
+
+
+//		the random timeout to append newly spawned targets  
+		//takes a much larger time interval picks timeout to ren//
+
+		//create conditional sections 
+			//such as
+			//could be useful to control game flow  
+///////////////////
+//////////////////////////////////////////////
+
+
+
 
 //////////////////////////////////////////////
 //////////////////////////////////////////////
