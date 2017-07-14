@@ -23,11 +23,15 @@
 **----Version0-----
 	
 	Generate randomly
+<<<<<<< HEAD
 	15 targets are generated per round
 	Vanish off game space if not hit by the player within a certain interval
 			Targets spawn on an interval of 5 per / s.
 			Targets have unique birthdays when they appear to the user.
 
+=======
+	
+>>>>>>> 6c34fea462e446c68246301d82e1c960ac498460
 	
 **-----Stretch-Goals-----
 	
