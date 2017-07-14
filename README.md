@@ -7,9 +7,9 @@
 ### ----------The User View----------
 
 	Makin' Bacon is a "skill-shot/target practice" style game that is similar in functionality to NES DuckHunt.
-	Two players take turns "shooting" targets(ideally: flying pigs)
-	Gameplay uses a combination of aiming via the mouse cursor and firing with the spacebar.
-	User goal is to hit the most targets during a 30 second interval or "round".
+	Two players take turns "shooting" targets
+	Gameplay uses aiming via the mouse cursor 
+	Game objective is to score the most points during a 30 second interval or "round".
 
 ### ----------Language Use / Functionality Challenges ----------
 
@@ -55,7 +55,7 @@
 	
 	User clicks on target to take a shot.
 	If click event is registered by the target it will trigger a hit function.
-	The target will dissapear and the Player will get receive points.
+	The target will dissapear and the Player will receive points.
 	
 **-----Stretch-Goals-----
 
