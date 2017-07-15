@@ -220,17 +220,22 @@ footer {
 /***************************TARGET OBJECT******************************/
 div.target {
 	position: absolute;
-	left: 1px;
+	left: 0%;
 	width: 25px;
 	height: 25px;
 	background: pink;
 }
+
+/*div.flying {
+	left: 100%;
+	transform: rotate(180deg);
+};*/
 /***************************GAMEPLAY TIMER VISUALIZATIONS******************************/
 .clock {
 	position: absolute;
 	z-index: 1000000000;
 	top: 0px;
-	background: transparent;
+	background: black;
 	color: red;
 	width: 60%;
 	height: 60%;

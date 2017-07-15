@@ -23,8 +23,9 @@ var $resetBoard;
 var $gameSummary;
 var $updatePlayerReady;
 var $allTargets;
-
-
+var $Player;
+var $gameSpace;
+var $target;
 
 
 //Game Constructor
@@ -43,13 +44,11 @@ var game = {
 //////////////////////////////////////////////,
 
 //3 second timer before players round begins
-
-
 var readySetGo = function(){
-	$removeTargets();
-	$updateScore();
+	$removeTargets(); //<----------------
+	$updateScore();//<-------------------
 	if(game.round === 1){
-		game.myTurn = "player2"; ////////SET ACTIVE PLAYER = PLAYER2
+		game.myTurn = "player2";//<----------SET ACTIVE PLAYER = PLAYER2
 		player1.isActive = false;
 		player2.isActive = true;
 		console.log(game.myTurn + "'s turn");
@@ -58,13 +57,8 @@ var readySetGo = function(){
 		game.round++;
 		setTimeout(countDown, 1000);
 	}else if(game.round >= 2){
-
 		game.round = 0;
-		// player1.score = 0;
-		// player2.score = 0;
 		console.log("time for a new game. round " + round + ". the score is " + player1.score + ":" + player2.score);
-		
-
 		game.myTurn = "player1";
 		player2.isActive = false;
 		player1.isActive = true;
@@ -74,7 +68,7 @@ var readySetGo = function(){
 		game.round++;
 		setTimeout(countDown, 1000);
 	}else{  //round currently = 0
-		game.myTurn = "player1";////////SET ACTIVE PLAYER = PLAYER1
+		game.myTurn = "player1";//<----------SET ACTIVE PLAYER = PLAYER1
 		player1.isActive = true;
 		player2.isActive = false;
 		console.log(game.myTurn + "'s turn");
@@ -87,11 +81,11 @@ var readySetGo = function(){
 };
 	
 var countDown = function(){
-	$playerReady();
+	$playerReady();		//<-------------------- line 237
 	if(game.tm === 0){
 		console.log("start shootin");
-		startSpawning();
-		playerRound();
+		startSpawning();//<--------------------
+		playerRound();//<----------------------
 	}else{
 		console.log(game.tm);
 		game.tm--;
@@ -101,22 +95,21 @@ var countDown = function(){
 //Timer keeping track of time remaining in a given players round// Starts spawning targets
 var playerRound = function(){
 	game.rnd = 30;
-	$displayTimeRemaining();
-	$displayScore();
+	$displayTimeRemaining();//<-----------------
+	$displayScore();//<-------------------------
 	setTimeout(gameClock, 1000);};
 
 var gameClock = function(){
 	if(game.rnd === 0){
 		console.log("buzz");
 		if(game.round === 2){
-			alert("Nice Game! Lets See Who Won");
-			$gameSummary();
+			$gameSummary();//<-------------------
 		}else{setTimeout(readySetGo, 1500);}
 	}else{
 		console.log(game.rnd);
 		game.rnd--;
-		$displayTimeRemaining();
-		$displayScore();
+		$displayTimeRemaining();//<---------------
+		$displayScore();//<-----------------------
 		setTimeout(gameClock, 1000);
 	}
 };
@@ -132,28 +125,39 @@ function Target(type){
 	this.type = type;
 	this.isHit = false;
 	this.speed = Math.floor(Math.random() * 3) + 1;
-	this.flightPath = 0;
+	this.flightPath = "flying";
 	this.presented = presented || false;
 	this.lifespan = (Math.floor(Math.random() * 6) + 5) * 1000;
 	this.value = Math.floor(this.speed * 2 );
 }
 
 Target.prototype.birthday = function(){
-	var target = document.createElement('div');
-	var gameSpace = document.getElementById('gameSpace');
-	gameSpace.appendChild(target);
-	target.classList.add('target');
-	target.classList.add(this.type);
+	var $target = $("<div>");
+	$gameSpace = $("#gameSpace");
+	$gameSpace.append($target);
+	$target.addClass('target');
+	$target.addClass(this.flightPath);
+	if($target.hasClass("flying") === true){
+		$target.animate({
+			left : "100%",
+			top : "50%"
+
+		},{
+			queue : false, 
+			duration : this.lifespan
+		}); 
+	}
+	$target.addClass(this.type);
 	console.log("spawn is alive");
-	target.animate({"left": "500px"}, 5000);
-	target.presented = true;
-	target.lifespan = setTimeout(function(){
-		if(target.presented === true){
-			target.remove();
+	$target.presented = true;
+	$target.lifespan = setTimeout(function(){
+		if($target.presented === true){
+			$target.remove();
 			console.log("target removed");
 			}
 		}, this.lifespan);
-	target.addEventListener("click", $iBeenShot);
+	$target.on("click", $iBeenShot);
+	// target.addEventListener
 
 };
 
@@ -210,6 +214,7 @@ var player2 = new Player("Player2", 1);
 
 /////////  JQUERY DOC READY CODING  ////////////
 $(function(){
+
 ///////// POPUP FUNCTIONALITY ////////////
 
 	$("#triggerInstructions").click(function(){
@@ -248,10 +253,10 @@ $(function(){
 		if($time === 0){
 			$(".clock").remove();
 			}else{
-				$updatePlayerReady();
+			$updatePlayerReady();
 			}
-
 	};
+
 	$updatePlayerReady = function(){
 		$(".clock").text(" ");
 		$(".clock").text(game.tm);
@@ -289,21 +294,26 @@ $(function(){
 	};
 ///////// PLAYER/TARGET INTERACTIONS ////////////
 	$iBelieveICanFly = function(){
-
+		console.log("ibelive i can fly" + this);
+		// $(this).animate({
+			// left : "500px"}, 5000);
+		// console.log("im " + $(this).flightPath);
 	};
 
 	$iBeenShot = function(){
 		console.log(this);
 		this.isHit = true;
 		this.lifespan = 0;
-		this.remove();
+		if(this.isHit === true){
+			this.remove();
+		}
 		console.log("target removed");
 		if(game.myTurn === "player1"){
 			player1.score++;
 			$updateScore();
 			player1.shotCount++;
 			console.log("Player1 Score: " + player1.score);
-		} else if(game.myTurn === "player2"){
+		}else if(game.myTurn === "player2"){
 			player2.score++;
 			$updateScore();
 			player2.shotCount++;
@@ -315,3 +325,8 @@ $(function(){
 	
 
 });
+
+
+
+
+
