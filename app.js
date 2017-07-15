@@ -26,15 +26,95 @@ var $allTargets;
 var $Player;
 var $gameSpace;
 var $target;
+var $automate;
 
 
-//Game Constructor
+//////////////////////////////////////////////
+///////////  GAME CONSTRUCTOR  ///////////////
+
 var game = {
 	myTurn : myTurn,
 	round : round,
 	tm : tm,
 	rnd : rnd,
 	numOfTargets : numOfTargets || 0
+};
+
+
+//////////////////////////////////////////////
+///////  PLAYER CONSTRUCTOR Fn /////////////
+
+function Player(name, index, score, isActive, shotCount, targetsHit) {
+	this.name = name;
+	this.index = index;
+	this.score = score || 0;
+	this.isActive = isActive || false;
+	this.shotCount = shotCount || 0;
+	this.targetsHit = targetsHit || 0;
+}
+
+
+//////////////////////////////////////////////
+/////////  TARGET CONSTRUCTOR Fn /////////////
+
+//object constructor
+function Target(){
+	this.typeIndex = Math.floor(Math.random() * 5) + 1;
+	this.isHit = false;
+	this.speed = Math.floor(Math.random() * 3) + 1;
+	this.flightPath = "flying";
+	this.automate = "automate";
+	this.presented = presented || false;
+	this.lifespan = (Math.floor(Math.random() * 6) + 5) * 1000;
+	this.value = Math.floor(this.speed * 2 );
+}
+
+Target.prototype.birthday = function(){
+	var $target = $("<div>");
+	// $target.change(function(){
+	// 	alert("target change triggered");
+	// });
+	$gameSpace = $("#gameSpace");
+	$gameSpace.append($target);
+	$target.on("click", $iBeenShot);
+	$target.addClass('target');
+	$target.addClass(this.flightPath);
+	if(this.typeIndex === 5){
+		this.type = "special";
+	}else{
+		this.type = "standard";}
+
+	$target.addClass(this.type);
+	$target.css("top", (Math.random() * (60-10) + 10) + "%");
+	$target.automate = setTimeout(function(){
+		if($target.hasClass("flying") === true){
+			console.log("I am inside the automate function");		
+			if($target.hasClass("special")){
+				console.log("special");
+				$target
+					.animate(
+						{top : "+=" + ((Math.random() * 80) + 80) + "%",
+						left : "+=" + ((Math.random() * 80) + 80) + "%"},
+						{duration: ((Math.floor(Math.random() * 6) + 5) * 1000) / 4})
+					.animate({},{duration: ((Math.floor(Math.random() * 6) + 5) * 1000) / 2});
+				}else{
+					console.log('standard');
+					$target
+						.animate(
+							{left: "+=" + ((Math.random() * 80) + 80) + "%"},{duration : (Math.floor(Math.random() * 6) + 5) * 1000});
+				}
+			}}, 100);
+
+	console.log("spawn is alive");
+	$target.presented = true;
+	$target.lifespan = setTimeout(function(){
+		if($target.presented === true){
+			$target.remove();
+			console.log("target removed");
+			}
+		}, this.lifespan);
+	
+	// target.addEventListener
 };
 
 //////////////////////////////////////////////
@@ -114,54 +194,10 @@ var gameClock = function(){
 	}
 };
 
-//////////////////////////////////////////////
-//////////////////////////////////////////////
-////////////////  TARGETS  ///////////////////
-//////////////////////////////////////////////
-//////////////////////////////////////////////
 
-//object constructor
-function Target(type){
-	this.type = type;
-	this.isHit = false;
-	this.speed = Math.floor(Math.random() * 3) + 1;
-	this.flightPath = "flying";
-	this.presented = presented || false;
-	this.lifespan = (Math.floor(Math.random() * 6) + 5) * 1000;
-	this.value = Math.floor(this.speed * 2 );
-}
-
-Target.prototype.birthday = function(){
-	var $target = $("<div>");
-	$gameSpace = $("#gameSpace");
-	$gameSpace.append($target);
-	$target.addClass('target');
-	$target.addClass(this.flightPath);
-	if($target.hasClass("flying") === true){
-		$target.animate({
-			left : "100%",
-			top : "50%"
-
-		},{
-			queue : false, 
-			duration : this.lifespan
-		}); 
-	}
-	$target.addClass(this.type);
-	console.log("spawn is alive");
-	$target.presented = true;
-	$target.lifespan = setTimeout(function(){
-		if($target.presented === true){
-			$target.remove();
-			console.log("target removed");
-			}
-		}, this.lifespan);
-	$target.on("click", $iBeenShot);
-	// target.addEventListener
-
-};
 
 //target logic
+
 //calls the newSpawn function on an interval at 10 per sec
 startSpawning = function(){
 	spawnInterval = setInterval(newSpawn, 100); //spawning takes place quickly
@@ -172,12 +208,13 @@ stopSpawning = function(){
 };
 //creates a new target spawn and appends to gamespace
 newSpawn = function(){
-	var thisLilPiggy =  new Target("standard"); 
+	var thisLilPiggy =  new Target(); 
 	game.numOfTargets++;
 
 	//set max number per round so players see the same total amount
 	if(game.numOfTargets === 16){
 		stopSpawning();
+		
 		console.log("all out of spawns");
 	}else{
 		console.log(game.numOfTargets);
@@ -190,21 +227,7 @@ newSpawn = function(){
 			//such as
 			//could be useful to control game flow 
 
-//////////////////////////////////////////////
-//////////////////////////////////////////////
-////////////////  PLAYERS  ///////////////////
-//////////////////////////////////////////////
-//////////////////////////////////////////////
 
-//object constructor
-function Player(name, index, score, isActive, shotCount, targetsHit) {
-	this.name = name;
-	this.index = index;
-	this.score = score || 0;
-	this.isActive = isActive || false;
-	this.shotCount = shotCount || 0;
-	this.targetsHit = targetsHit || 0;
-}
 var player1 = new Player("Player1", 0);
 var player2 = new Player("Player2", 1);
 
@@ -293,12 +316,25 @@ $(function(){
 		$("#p2Sc").text(player2.score);
 	};
 ///////// PLAYER/TARGET INTERACTIONS ////////////
-	$iBelieveICanFly = function(){
-		console.log("ibelive i can fly" + this);
-		// $(this).animate({
-			// left : "500px"}, 5000);
-		// console.log("im " + $(this).flightPath);
-	};
+
+// var div = $( "div" );
+	$iBelieveICanFly = function(obj){
+		$(obj).each(function(index){
+			consle.log("working" + index);
+		})	;};
+ 
+// function runIt() {
+//   div
+//     .show( "slow" )
+//     .animate({ left: "+=200" }, 2000 )
+//     .slideToggle( 1000 )
+//     .slideToggle( "fast" )
+//     .animate({ left: "-=200" }, 1500 )
+//     .hide( "slow" )
+//     .show( 1200 )
+//     .slideUp( "normal", runIt );
+// }
+// 	};
 
 	$iBeenShot = function(){
 		console.log(this);
@@ -322,7 +358,10 @@ $(function(){
 		
 	};
 
-	
+
+
+
+
 
 });
 
