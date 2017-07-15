@@ -5,18 +5,20 @@
 }
 
 body {
-	background: ; 
+	background: rgba(255, 253, 238, 1.0);
 }	
 
 /*********NAVIGATION*************/
 #nav {
 	position: fixed;
 	top: 0px;
-	height: 45px;
+	height: 40px;
 	width: 100%;
-	background: linear-gradient(to left, #331C14, white, #CC4361);
+	background: linear-gradient(to right, rgba(165, 220, 250, 1.0), white, rgba(165, 220, 250, 1.0));
 	text-align: center;
-	z-index: 150;
+	z-index: 501;
+		box-shadow: 0 0 1px 0 rgba(25, 25, 25, 1.0);
+
 }
 nav img {
 	float: left;
@@ -31,7 +33,7 @@ span#nav_head{
 	font-size: 1.5em;
 	margin: auto;
 	vertical-align: text-top;
-	padding-top: 15px;
+	padding-top: 5px;
 	padding-right: 46px;
 }
 
@@ -39,103 +41,129 @@ span#nav_head{
 
 .section {
 	position: relative;
-	top: 45px;
+	top: 40px;
 	width: 80%;
 	margin: 0px auto;
-	padding-top: 40px;
-	background: rgba(25, 24, 23, 1.0);
+	background: url("../img/background/hill_landscape.jpg");
+	box-shadow: inset;
+	background-size: cover; 
+		box-shadow: 0 0 1px 0 rgba(25, 25, 25, 1.0);
+
+
 
 }
 #gameSpace {
 	position: relative;
-	top: 25px;
-	width: 70%;
-	height: 400px;
-	background: white;
+	top: 64px;
+	width: 84%;
+	height: 420px;
+	background: rgba(255, 253, 239, 0.5);
 	margin: auto;
 	border-radius: 2px;
+	box-shadow: 0 0 1px 0 rgba(25, 25, 25, 0.8);
+
 }
+
+/*********SCOREBOARD STYLES*************/
+
+
 .sb_section{
 	position: absolute;
-	top: 25px;
-	width: 10%;
+	top:0px;
+	width: 25%;
 	margin: 0 auto;
+	font-family: 'Raleway Dots', cursive;
+	box-shadow: 0 0 1px 0 rgba(25, 25, 25, .2);
+	z-index: 500;
+
 }
 .sb_section#p1{
-	background: rgba(252, 72, 62, .7);
-	left: 25px;
+	background: rgba(143, 183, 49, 1.0);
+	left: 0;
 }
 .sb_section#p2{
-	background: rgba(127, 132, 252, .7);
-	right: 25px;
+	background: rgba(242, 211, 98, 1.0);
+	right: 0;
 }
 
 .sb_label{
 	height: 20px;
 	text-align: center;
-	border: 3px solid blue;
-	border-bottom: none;
 	background: rgba();
 
 }
 
 .score {
 	width: 100%;
-	height: 80px;
-	border: 3px solid blue;
-	font-weight: 700;
-	font-size: 1.5em;
-	background: black;
-	color: white;
+	height: 40px;
+	text-align: center;
+	font-size: 35px;
+	background: rgba(255, 253, 239, 1.0);
+	color: black;
 }
 div#round_time{
-	width: 8%;
-	margin: 0 46%;
+	top: 0;
+	width: 50%;
+	margin: 0 25%;
 }
-div#round_time div.sb_label{
-	font-size: .6em;
+div#round_time .sb_label{
+	height: 20px;
+	background: linear-gradient(to right, rgba(143, 183, 49, 1.0), rgba(242, 211, 98, 1.0));
 }
 div#round_time_display {
 	height: 40px;
-	background: red;
+	text-align: center;
+	font-size: 35px;
+	background: rgba(255, 253, 239, 1.0);
 	width: 100%;
 }
+/*********BUTTONS STYLES*************/
 
 .button_container {
+	position: relative;
 	width: 100%;
 	height: 100px;
-	margin: 30px auto 0;
+	margin-top: 31px;
 	text-align: center;
 }
 .button {
-	padding: 8px;
-	margin: 10px 20px 0;
-	background: rgba(207, 63, 92, 1.0);
+	transition-duration: 550ms;
+	padding: 6px 14px;
+	margin: 35px 10px 20px;
+	color: rgba(255, 253, 239, 1.0);
+	background: rgba(246, 137, 146, 1.0);
 	border-radius: 4px;
+	box-shadow: inset 0 0 0 1px rgba(246, 137, 146, 1.0);
+	
 	border: 1px solid black;
 }
 .button span{
-	padding: 30px;
-	font-size: 1.2em;
+	padding: 6px 14px;
+	font-size: 1.0em;
+	font-weight: 700;
 }
 
 .button:hover {
 	transition-duration: 550ms;
 	font-size: 1em;
 	font-weight: 700;
-	color: white;
-	background: rgba(143, 42, 35, 1.0);
+	color: rgba(206, 21, 97, 1.0);
+	background: rgba(255, 253, 239, 1.0);
+	box-shadow: inset 0 0 0 1px rgba(255, 253, 239, 1.0),inset 0 5px 25px rgba(255, 253, 239, 1.0);
 }
+
 
 /*********FOOTER*************/
 
 footer {
 	position: fixed;
-	height: 50px;
+	height: 40px;
 	bottom: 0px;
 	width: 100%;
-	background: linear-gradient(to right, #331C14, white, #CC4361);
-	z-index: 150;
+	background: linear-gradient(to left, rgba(180, 219, 77, 1.0), rgba(74, 114, 48, 1.0));
+	z-index: 100;
+		box-shadow: 0 0 1px 0 rgba(25, 25, 25, 1.0);
+
 }	
 	
 .footer_section {
@@ -150,7 +178,7 @@ footer {
 	font-size: 1.25em;
 	text-decoration: none;
 	float: right;
-	padding: 10px 6px;
+	padding: 6px 6px;
 	margin: auto 10px;
 	color: black;
 	background: transparent;}
@@ -177,18 +205,16 @@ footer {
 }
 
 #game_cover {
-	position: absolute;
-	top: 25px;
-	left: 0px;
+	top: 0px;
 	width: 100%;
-	height: 400px;
+	height: 88%;
 	background: blue;
 	margin: 0px auto;
-	border-radius: 2px;
+	border-radius: 4px;
+	z-index: 601;
 	
 }
 #instructions {
-	position: absolute;
 	background: black;
 	color: white;
 	box-shadow: 0 0 45px 4em rgba(0,0,0,.7);
@@ -221,22 +247,19 @@ footer {
 div.target {
 	position: absolute;
 	left: 0%;
-	width: 25px;
-	height: 25px;
+	width: 45px;
+	height: 35px;
 	background: pink;
 }
 
-/*div.flying {
-	left: 100%;
-	transform: rotate(180deg);
-};*/
+
 /***************************GAMEPLAY TIMER VISUALIZATIONS******************************/
 .clock {
 	position: absolute;
 	z-index: 1000000000;
 	top: 0px;
-	background: black;
-	color: red;
+	background: transparent;
+	color: black;
 	width: 60%;
 	height: 60%;
 	margin-top: 2%;
