@@ -137,7 +137,6 @@ readySetGo = function(){
 		player1.isActive = false;
 		player2.isActive = true;
 		console.log(game.myTurn + "'s turn");
-		alert("player 2 you're up");
 		game.tm = 3;
 		game.round++;
 		setTimeout(countDown, 1000);
@@ -148,7 +147,6 @@ readySetGo = function(){
 		player2.isActive = false;
 		player1.isActive = true;
 		console.log(game.myTurn + "'s turn");
-		alert("player 1 you're up");
 		game.tm = 3;
 		game.round++;
 		setTimeout(countDown, 1000);
@@ -157,7 +155,6 @@ readySetGo = function(){
 		player1.isActive = true;
 		player2.isActive = false;
 		console.log(game.myTurn + "'s turn");
-		alert("player 1 you're up");
 		game.tm = 3;
 		game.round++;
 		console.log(game.round);
