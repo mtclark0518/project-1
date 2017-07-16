@@ -246,11 +246,11 @@ footer {
 /***************************TARGET OBJECT******************************/
 div.target {
 	position: absolute;
-	width: 45px;
-	height: 35px;
+	width: 55px;
+	height: 55px;
 	background: pink;
+	border-radius: 50px;
 }
-
 
 /***************************GAMEPLAY TIMER VISUALIZATIONS******************************/
 .clock {

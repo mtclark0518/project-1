@@ -2,20 +2,41 @@
 ///////////  VARIABLE DECLARATIONS  ///////////////
 
 //game variables
-var myTurn, round = 0, tm, rnd, numOfTargets;
+var myTurn; 
+var round = 0; 
+var tm;
+var rnd; 
+var numOfTargets;
 
 
 //timing variables
-var readySetGo, countDown, playerRound, gameClock, start, presented;
+var readySetGo; 
+var countDown;
+var playerRound;
+var gameClock;
 
 
 //target spawn variables
-var startSpawning, stopSpawning, spawnInterval, newSpawn;
+var startSpawning;
+var stopSpawning; 
+var spawnInterval;
+var newSpawn;
 
 
 //jquery variables
-var $iBeenShot, $playerReady, $displayTimeRemaining, $displayScore, $resetBoard;
-var $gameSummary, $updatePlayerReady, $allTargets, $Player, $gameSpace, $target;
+var $iBeenShot;
+var $targetMovement;
+var $escape;
+var $playerReady;
+var $updatePlayerReady;
+var $displayTimeRemaining;
+var $displayScore;
+var $updateScore;
+var $gameSummary;
+var $resetBoard;
+var $allTargets;
+var $gameSpace;
+var $target;
 
 
 //////////////////////////////////////////////
@@ -45,84 +66,64 @@ function Player(name, index, score, isActive, shotCount, targetsHit) {
 
 //////////////////////////////////////////////
 /////////  TARGET CONSTRUCTOR Fn /////////////
-$target = $("<div>");
+
 //object constructor
 function Target(){
-	this.typeIndex = Math.floor(Math.random() * 5) + 1;
-	this.start = Math.floor(Math.random() * (60-10)) + 10;
-	this.height = this.start + "%";
-	if(start % 2 === 0){
-		this.classList.addClass("left");	
-	} else{
-		this.classList.addClass("right");
-	}
-
 	this.isHit = false;
-	this.flightPath = "flying";
-	this.presented = presented || false;
-	this.lifespan = (Math.floor(Math.random() * 6) + 5) * 1000;
-	this.speed = Math.floor(Math.random() * 3) + 1;
-	this.value = Math.floor(((10 - (this.lifespan/1000)) + this.speed) * this.typeIndex);
+	this.presented = false;
+	
+	this.start = Math.floor(Math.random() * (60-10)) + 10;
+	this.startHeight = this.start + "%";
+	this.originSide = this.start % 2 === 0 ? "left" : "right";
+	
+	this.typeIndex = Math.floor(Math.random() * 5) + 1;
+	this.type = this.typeIndex === 5 ? "special" : "standard";
+	
+	this.lifespan = this.type === "standard" ? (Math.floor(Math.random() * 6) + 5) * 2000 : (Math.floor(Math.random() * 6) + 5) * 1000;
+	this.speed = 5000 / this.typeIndex;
+	this.value = Math.floor( (10 - (this.lifespan/2000)) + (this.typeIndex * 2));
 }
 
 
-Target.prototype.birthday = function(){
-	$target.addClass('target');
-	$gameSpace = $("#gameSpace");
-	$gameSpace.append($target);
+Target.prototype = {
+	birthday : function(){
+		$target = $("<div>");
+		$gameSpace = $("#gameSpace");
+		$gameSpace.append($target);
+		$target.addClass('target');
+		$target.addClass(this.type);
+		$target.presented = true;
+		$target.on("click", $iBeenShot);
+		$target.css("top", this.startHeight);
+		$target
+			.animate({
+				left : "+=" + (Math.random()*(85-75)+75) + "%",
+				top: "-=" + (this.start/4) + "%"}, 
+				this.lifespan/4)
+			.animate({
+				left : "-=" + (Math.random()*(75-35)+35) + "%",
+				}, this.lifespan/4)
+			.animate({
+				left : "+=" + (Math.random()*(35-30)+30) + "%",
+				top: "+=" + (this.start/8) + "%"}, 
+				this.lifespan/8)
+			.animate({
+				left : "-=" + (Math.random()*(30-15) + 15) + "%",
+				top: "+=" + (this.start/8) + "%"}, 
+				this.lifespan/8)
+			.animate({
+				left : "+=" + (Math.random()*(15 - 5)+ 5) + "%",
+				top: "0%"}, 
+				{
+				duration : this.lifespan/8, 
+				complete: function(){
+				this.remove();
+				} 
+		});	
+	
 
-	$target.addClass(this.flightPath);
-	$target.on("click", $iBeenShot );
-	$target.presented = true;
-	$target.automate();
-	$target.lifespan = setTimeout(function(){
-		if($target.presented === true){
-			$target.remove();
-			console.log("target removed");
-			}
-	}, this.lifespan);	
-};
-
-Target.prototype.type = function(){
-	if(this.typeIndex === 5){
-		this.type = "special";
-	}else{
-		this.type = "standard";
-	}	
-	$target.addClass(this.type);
-	return this;};
-
-Target.prototype.automate = function(){
-	setTimeout(function(){
-		if($target.hasClass("flying") === true){
-			var start = $target.start;
-			console.log(start);		
-			if($target.hasClass("special")){
-				console.log(start + "special");
-				$target
-					.animate(
-						{top : "+=" + ((Math.random() * 91) + 5) + "%",
-						start : "+=" + ((Math.random() * 91) + 5) + "%"},
-						{duration: ((Math.floor(Math.random() * 6) + 5) * 1000) / 4});
-					// .animate({},{duration: ((Math.floor(Math.random() * 6) + 5) * 1000) / 2});
-			}else{
-				console.log(start + "standard");
-				$target
-					.animate(
-						{start: "+=" + ((Math.random() * 80) + 80) + "%"},{duration : (Math.floor(Math.random() * 6) + 5) * 1000});
-			}
-		}
-	}, 100);};
-
-Target.prototype.splitter = function(){
-	var x = parseInt(this.height);
-	if(x % 2 === 0){//<----------------to assign left / right start position
-		thisLilPiggy.css("left", 0);
-		this.start = "left" ;
-	}else{
-		thisLilPiggy.css("right", 0);
-		this.start = "right";
 	}
+
 };
 ////////////////////////////////////////////
 //////////////  TIMEKEEPING  /////////////////
@@ -200,7 +201,7 @@ gameClock = function(){
 //////////////////////////////////////////////
 //////////////  TARGET SPAWN  /////////////////
 
-//calls the newSpawn function on an interval at 10 per sec
+//calls the newSpawn function on an interval at 2 per sec
 startSpawning = function(){
 	spawnInterval = setInterval(newSpawn, 100); //spawning takes place quickly
 };
@@ -220,11 +221,7 @@ newSpawn = function(){
 		console.log("all out of spawns");
 	}else{
 		console.log(game.numOfTargets);
-		thisLilPiggy.type();
-		thisLilPiggy.splitter();
-		thisLilPiggy.howHigh();
 		
-
 		//actually appending each instance will take varying lengths of time spaced out much longer
 		setTimeout(function(){thisLilPiggy.birthday();}, (((Math.random() * 20) + 1) * 1000));//appending between 1s -20s
 	}
@@ -235,6 +232,8 @@ var player2 = new Player("Player2", 1);
 
 
 /////////  JQUERY DOC READY CODING  ////////////
+
+
 
 
 $(function(){
@@ -260,9 +259,9 @@ $(function(){
 		$gameSummary();
 		readySetGo();
 	});
+
 	
 ///////// VARIOUS FUNCTIONALITY ////////////
-
 	$removeTargets = function(){
 		$allTargets = $(".target");
 		$allTargets.remove();
@@ -317,8 +316,11 @@ $(function(){
 		$("#p2Sc").text(player2.score);
 	};
 ///////// PLAYER/TARGET INTERACTIONS ////////////
+	// $targetLifespan = function(){
 
+	// };
 	$iBeenShot = function(){
+		console.log(this.value + " is my value and " + this.type + " is my type");
 		console.log(this);
 		this.isHit = true;
 		this.lifespan = 0;
@@ -340,11 +342,6 @@ $(function(){
 	};
 
 
-
-
-	$someFun =function(){
-		alert("someFun has run");
-	};
 
 });
 
