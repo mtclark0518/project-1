@@ -13,7 +13,8 @@
 
 ### ----------Language Use / Functionality Challenges ----------
 
-	Completed solely via front end technologies (html, css, js & jquery).
+	Completed solely via front end technologies (html, css, js & jquery). 
+	Utilized OOP techniques to build application resources
 	Challenges include use of functions such as setInterval, setTimeout, Math.{...}
 
 ### --------------------Functionality--------------------
@@ -23,30 +24,28 @@
 **----Version0-----
 	
 	Generate randomly
-	15 targets are generated per round
+	Move at various speeds
+	Move at various trajectories
+	Move at varying speeds
+	Move at varying trajectories
 	Vanish off game space if not hit by the player within a certain interval
-			Targets spawn on an interval of 5 per / s.
-			Targets have unique birthdays when they appear to the user.
 	Targets move across the screen
 	
 **-----Stretch-Goals-----
 	
 		
-		Move at various speeds
-		Move at various trajectories
-		Move at varying speeds
-		Move at varying trajectories
-		Grow in "strength"
+		
+		Grow in "strength || hp"
 		
 
 ### ----------Timing & Scoring & Winning Condition----------
 
 	Rounds last 30 seconds.
-	Target hits are worth equal point totals
+	Target hits are worth 1 point.
 	Score is displayed around the perimeter of the game space.
 	After two rounds the scores are compared 
 	Whoever scores the most wins
-	The winner is posted via an alert popup
+	The winner is posted via a popup
 
 
 **-----Stretch-Goals-----
