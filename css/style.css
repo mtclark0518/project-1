@@ -195,12 +195,15 @@ footer {
 #game_cover_img{
 	width: 250px;
 	height: 250px;
-	transition: 8000ms;
+	transition: transform rotateZ(-360deg);
+	transition-duration: 3000ms;
+	
 }
 
 #game_cover_img:hover{
-	transition: 8000ms;
-	transform: rotateZ(-720deg);
+	transition-duration: 3000ms;
+	transform: rotateZ(360deg);
+
 }
 
 #instructions {
@@ -210,7 +213,7 @@ footer {
 	width: 80%;
 	left: 10%;
 	height: 80%;
-	z-index: 602;
+	z-index: 605;
 }
 .instructions {
 	text-align: center;
@@ -235,7 +238,9 @@ p {
 
 #game_recap {
 	position: absolute;
-	background: url("../img/backgroung/gameSpace_bg.png");
+	background: url("../img/background/hill_landscape.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
 	color: black;
 	box-shadow: 0 0 45px 4em rgba(0,0,0,.7);
 	width: 60%;

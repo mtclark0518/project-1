@@ -83,11 +83,18 @@ function Target(){
 Target.prototype = {
 	birthday : function(){
 		$target = $("<div>");
+		$sound = $("<audio>").addClass("piggy");
+		$sound.attr("src", "sound/wreee.mp3");
+		$target.append($sound);
 		$gameSpace = $("#gameSpace");
+
 		$gameSpace.append($target);
 		$target.addClass('target');
 		$target.addClass(this.type);
 		$target.presented = true;
+		$target.on("click", function(){
+			$sound[0].play();
+		});
 		$target.on("click", $iBeenShot);
 		$target.css("top", this.startHeight);
 		$target
@@ -199,7 +206,6 @@ newSpawn = function(){
 	//set max number per round so players see the same total amount
 	if(game.numOfTargets === 9){
 		stopSpawning();
-		
 		console.log("all out of spawns");
 	}else{
 		console.log(game.numOfTargets);
@@ -243,8 +249,10 @@ $(function(){
 		readySetGo();
 	});
 
+
 	
 ///////// VARIOUS FUNCTIONALITY ////////////
+
 	$removeTargets = function(){
 		$allTargets = $(".target");
 		$allTargets.remove();
@@ -294,6 +302,8 @@ $(function(){
 		$("#p1Sc").text(player1.score);
 		$("#p2Sc").text(player2.score);
 	};
+
+
 ///////// PLAYER/TARGET INTERACTIONS ////////////
 
 	$iBeenShot = function(){
@@ -316,6 +326,8 @@ $(function(){
 			console.log("Player2 Score: " + player2.score);
 		}	
 	};
+	
+
 });
 
 
