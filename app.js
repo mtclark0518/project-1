@@ -25,8 +25,6 @@ var newSpawn;
 
 //jquery variables
 var $iBeenShot;
-var $targetMovement;
-var $escape;
 var $playerReady;
 var $updatePlayerReady;
 var $displayTimeRemaining;
@@ -93,22 +91,25 @@ Target.prototype = {
 		$target.on("click", $iBeenShot);
 		$target.css("top", this.startHeight);
 		$target
-			.animate({
+			.animate({//<------------------------------------------btwn left: 40%-90%
 				left : (Math.random()*(90-40)+40) + "%",
 				top: "-=" + (this.start/4) + "%"}, {
 				duration : this.lifespan/4})
-			.animate({
+			.animate({//<------------------------------------------bwtn left: 20%-30%
 				left : (Math.random()*(30-20)+20) + "%"},{
 				duration : this.lifespan/4})
-			.animate({
+			.animate({//<------------------------------------------btwn left: 10%-90%
 				left : Math.random()*(90-10)+10 + "%",
 				top: "+=" + (this.start/8) + "%"},{
 				duration : this.lifespan/4})
-			.animate({
+			.animate({//<------------------------------------------btwn left: 5% -95%
 				left : Math.random()*(95 - 5) + 5 + "%",
-				top: "0%"},{
-				duration : this.lifespan/4, 
-				});}};
+				top: "0%"},{//<------------------------------------head up to top of games space
+				duration : this.lifespan/4,
+				complete: function(){
+					$(this).remove();
+				} 
+			});}};
 	
 ////////////////////////////////////////////
 //////////////  TIMEKEEPING  /////////////////
@@ -227,11 +228,14 @@ $(function(){
 		$(this).parent().fadeOut("1500ms");
 	});
 
-	$("#triggerPlay").click(function(){
+	$(".triggerPlay").click(function(){
 		$("#game_cover").fadeOut('1500ms',function(){
 			$(this).addClass("hidden");
 			readySetGo();
 		});
+	});
+	$("#instructions_play").click(function(){
+		$(this).parent().parent().fadeOut("1500ms");
 	});
 	
 	$("#reset").click(function(){

@@ -28,13 +28,19 @@
 					<li>Players use their mouse to "shoot". </li>
 					<li>User goal is to hit the most targets during a 30 second interval or "round".</li>
 				</ul>
+				<div class="button_container">
+					<button id="instructions_play" class="close button triggerPlay"><span>Play</span></button></div>
 			</div>
 		
 			<div class="section">
 				<div id="game_cover" class="popup ">
-					<div class="button_container">
-						<button id="triggerPlay" class="button"><span>Play</span></button>
+					<div class="cover_img_container">
+						<img id="game_cover_img"src="img/pig-head.png">
+					</div>
+					<div id="cover" class="button_container">
+						<button class="button triggerPlay"><span>Play</span></button>
 						<button  id="" class="button triggerInstructions"><span>Instructions</span></button>
+
 					</div>
 				</div>	
 				<div class="scoreboard">
@@ -54,7 +60,7 @@
 				<div id="gameSpace">
 					<div id="game_recap" class="popup hidden">
 						
-						<div class="button_container">
+						<div id="recap" class="button_container">
 							<button id="reset" class="button">Play Again</button>							
 							<button class="button triggerInstructions"><span>Instructions</span></button>
 						</div>

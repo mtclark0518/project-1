@@ -177,14 +177,33 @@ footer {
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background: blue;
+	background: url("../img/background/abandonedFarm.png");
+	background-repeat: no-repeat;
+	background-size: cover;
 	margin: 0px auto;
 	border-radius: 4px;
 	z-index: 601;
 	
 }
+.cover_img_container{
+	background: transparent;
+	text-align: center;
+	margin-top: 10%;
+}
+
+#game_cover_img{
+	width: 250px;
+	height: 250px;
+	transition: 8000ms;
+}
+
+#game_cover_img:hover{
+	transition: 8000ms;
+	transform: rotateZ(-720deg);
+}
+
 #instructions {
-	background: rgba(0,0,0,.7);
+	background: rgba(0,0,0,.9);
 	color: white;
 	box-shadow: 0 0 45px 4em rgba(0,0,0,.7);
 	width: 80%;
@@ -215,7 +234,7 @@ p {
 
 #game_recap {
 	position: absolute;
-	background: rgba(255, 253, 238, 1.0);
+	background: url("../img/backgroung/gameSpace_bg.png");
 	color: black;
 	box-shadow: 0 0 45px 4em rgba(0,0,0,.7);
 	width: 60%;
@@ -227,11 +246,20 @@ p {
 
 .button_container {
 	position: relative;
-	top: 70%;
 	width: 100%;
 	height: 100px;
 	text-align: center;
 }
+
+.button_container#cover{
+	background: transparent;
+	
+}
+.button_container#recap{
+
+}
+
+
 .button {
 	transition-duration: 550ms;
 	padding: 6px 14px;
@@ -257,6 +285,7 @@ p {
 	background: rgba(255, 253, 239, 1.0);
 	box-shadow: inset 0 0 0 1px rgba(255, 253, 239, 1.0),inset 0 5px 25px rgba(255, 253, 239, 1.0);
 }
+
 /***************************TARGET OBJECT******************************/
 div.target {
 	position: absolute;
