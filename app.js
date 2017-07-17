@@ -82,8 +82,6 @@ function Target(){
 	this.speed = 5000 / this.typeIndex;
 	this.value = Math.floor( (10 - (this.lifespan/2000)) + (this.typeIndex * 2));
 }
-
-
 Target.prototype = {
 	birthday : function(){
 		$target = $("<div>");
@@ -97,33 +95,21 @@ Target.prototype = {
 		$target
 			.animate({
 				left : (Math.random()*(90-40)+40) + "%",
-				top: "-=" + (this.start/4) + "%"}, 
-				this.lifespan/4)
+				top: "-=" + (this.start/4) + "%"}, {
+				duration : this.lifespan/4})
 			.animate({
-				left : (Math.random()*(30-20)+20) + "%",
-				}, this.lifespan/4)
+				left : (Math.random()*(30-20)+20) + "%"},{
+				duration : this.lifespan/4})
 			.animate({
 				left : Math.random()*(90-10)+10 + "%",
-				top: "+=" + (this.start/8) + "%"}, 
-				this.lifespan/8)
-			.animate({
-				left : (Math.random()*(45-25) + 25) + "%",
-				top: "+=" + (this.start/8) + "%"}, 
-				this.lifespan/8)
+				top: "+=" + (this.start/8) + "%"},{
+				duration : this.lifespan/4})
 			.animate({
 				left : Math.random()*(95 - 5) + 5 + "%",
-				top: "0%"}, 
-				{
-				duration : this.lifespan/16, 
-				complete: function(){
-				this.remove();
-				} 
-		});	
+				top: "0%"},{
+				duration : this.lifespan/4, 
+				});}};
 	
-
-	}
-
-};
 ////////////////////////////////////////////
 //////////////  TIMEKEEPING  /////////////////
 
@@ -160,7 +146,6 @@ readySetGo = function(){
 		setTimeout(countDown, 1000);
 	}
 };
-
 countDown = function(){
 	$playerReady();		//<-------------------- line 237
 	if(game.tm === 0){
@@ -211,7 +196,7 @@ newSpawn = function(){
 	game.numOfTargets++;
 
 	//set max number per round so players see the same total amount
-	if(game.numOfTargets === 16){
+	if(game.numOfTargets === 9){
 		stopSpawning();
 		
 		console.log("all out of spawns");
@@ -228,8 +213,6 @@ var player2 = new Player("Player2", 1);
 
 
 /////////  JQUERY DOC READY CODING  ////////////
-
-
 
 
 $(function(){
@@ -263,7 +246,6 @@ $(function(){
 		$allTargets.remove();
 		game.numOfTargets = 0;
 	};
-
 	$playerReady = function(){
 		var $time = game.tm;
 		var $clock = $('<div>').appendTo("body");
@@ -275,12 +257,10 @@ $(function(){
 			$updatePlayerReady();
 		}
 	};
-
 	$updatePlayerReady = function(){
-		$(".clock").text(" ");
+		$(".clock").fadeOut(1250).text(" ");
 		$(".clock").text(game.tm);
 	};
-	
 	$gameSummary = function(){
 		var $summary = $("#game_recap");
 		$summary.toggleClass("hidden");
@@ -295,7 +275,6 @@ $(function(){
 		player1.score = 0;
 		player2.score = 0;
 	};		
-
 	$displayTimeRemaining = function(){
 		var $rndTm = game.rnd;
 		var $roundTimeDisplay = $("#round_time_display");
@@ -312,11 +291,8 @@ $(function(){
 		$("#p2Sc").text(player2.score);
 	};
 ///////// PLAYER/TARGET INTERACTIONS ////////////
-	// $targetLifespan = function(){
 
-	// };
 	$iBeenShot = function(){
-		console.log(this.value + " is my value and " + this.type + " is my type");
 		console.log(this);
 		this.isHit = true;
 		this.lifespan = 0;
@@ -336,9 +312,6 @@ $(function(){
 			console.log("Player2 Score: " + player2.score);
 		}	
 	};
-
-
-
 });
 
 

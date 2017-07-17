@@ -17,7 +17,7 @@ body {
 	background: linear-gradient(to right, rgba(165, 220, 250, 1.0), white, rgba(165, 220, 250, 1.0));
 	text-align: center;
 	z-index: 501;
-		box-shadow: 0 0 1px 0 rgba(25, 25, 25, 1.0);
+	box-shadow: 0 0 1px 0 rgba(25, 25, 25, 1.0);
 
 }
 nav img {
@@ -25,8 +25,8 @@ nav img {
 	float: left;
 	padding-left: 20px;
 	padding-top: 5px;
-
 }
+
 span#nav_head{
 	display: inline-block;
 	font-family: "Amatica SC", cursive;
@@ -48,26 +48,23 @@ span#makin{
 	position: relative;
 	top: 40px;
 	width: 80%;
-	height: 540px;
+	height: 570px;
 	margin: 0px auto;
 	background: url("../img/background/hill_landscape.jpg");
 	box-shadow: inset;
 	background-size: cover; 
 	box-shadow: 0 0 1px 0 rgba(25, 25, 25, 1.0);
-
-
-
 }
+
 #gameSpace {
 	position: relative;
 	top: 70px;
 	width: 84%;
-	height: 490px;
+	height: 500px;
 	background: rgba(255, 253, 239, 0.5);
 	margin: auto;
 	border-radius: 2px;
 	box-shadow: 0 0 1px 0 rgba(25, 25, 25, 0.8);
-
 }
 
 /*********SCOREBOARD STYLES*************/
@@ -81,7 +78,6 @@ span#makin{
 	font-family: 'Raleway Dots', cursive;
 	box-shadow: 0 0 1px 0 rgba(25, 25, 25, .2);
 	z-index: 500;
-
 }
 .sb_section#p1{
 	background: rgba(143, 183, 49, 1.0);
@@ -154,9 +150,13 @@ footer {
 	padding: 6px 6px;
 	margin: auto 10px;
 	color: black;
-	background: transparent;}
+	background: transparent;
+	transition: transform 650ms;
+}
 .icon:hover {
-	transition-duration: 550ms;
+	transform: rotateZ(360deg);
+	transition: transform 1500ms;
+
 	color: white;}
 
 /***************************POPUP STYLES******************************/
@@ -184,12 +184,22 @@ footer {
 	
 }
 #instructions {
-	background: black;
+	background: rgba(0,0,0,.7);
 	color: white;
 	box-shadow: 0 0 45px 4em rgba(0,0,0,.7);
 	width: 80%;
 	left: 10%;
+	height: 80%;
 	z-index: 602;
+}
+.instructions {
+	text-align: center;
+
+}
+
+li{
+	padding: 5px;
+	font-size: 30px;
 }
 
 h1 {
@@ -252,10 +262,12 @@ div.target {
 	position: absolute;
 	width: 10%;
 	height: 10%;
-	background: url("../img/pig_right.png");
+	background: url("../img/anotherPig.png");
 	background-size: contain;
 	background-repeat: no-repeat;
+	transition: transform 2000ms;
 }
+
 
 /***************************GAMEPLAY TIMER VISUALIZATIONS******************************/
 .clock {
@@ -271,6 +283,7 @@ div.target {
 	padding-top: 175px;
 	text-align: center;
 	font-size: 250px;
+	font-family: "Press Start 2p", cursive;
 	}
 
 /*@media (max-width: 400px){
