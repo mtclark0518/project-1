@@ -6,6 +6,7 @@
 
 body {
 	background: rgba(255, 253, 238, 1.0);
+	
 }	
 
 /*********NAVIGATION*************/
@@ -14,9 +15,9 @@ body {
 	top: 0px;
 	height: 40px;
 	width: 100%;
-	background: linear-gradient(to right, rgba(165, 220, 250, 1.0), white, rgba(165, 220, 250, 1.0));
+	background: linear-gradient(to right, rgba(165, 220, 250, 1.0), rgba(255, 253, 238, 1.0), rgba(165, 220, 250, 1.0));
 	text-align: center;
-	z-index: 501;
+	z-index: 801;
 	box-shadow: 0 0 1px 0 rgba(25, 25, 25, 1.0);
 
 }
@@ -97,9 +98,9 @@ span#makin{
 
 .score {
 	width: 100%;
-	height: 40px;
+	height: 50px;
 	text-align: center;
-	font-size: 35px;
+	font-size: 45px;
 	background: rgba(255, 253, 239, 1.0);
 	color: black;
 }
@@ -113,9 +114,9 @@ div#round_time .sb_label{
 	background: linear-gradient(to right, rgba(143, 183, 49, 1.0), rgba(242, 211, 98, 1.0));
 }
 div#round_time_display {
-	height: 40px;
+	height: 50px;
 	text-align: center;
-	font-size: 35px;
+	font-size: 45px;
 	background: rgba(255, 253, 239, 1.0);
 	width: 100%;
 }
@@ -130,7 +131,7 @@ footer {
 	bottom: 0px;
 	width: 100%;
 	background: linear-gradient(to left, rgba(180, 219, 77, 1.0), rgba(74, 114, 48, 1.0));
-	z-index: 1000;
+	z-index: 801;
 	box-shadow: 0 0 1px 0 rgba(25, 25, 25, 1.0);
 
 }	
@@ -240,7 +241,7 @@ p {
 	width: 60%;
 	left: 20%;
 	/*	left: 10%; */	
-	z-index: 600;
+	z-index: 603;
 }
 /*********BUTTONS STYLES*************/
 
