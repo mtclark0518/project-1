@@ -244,7 +244,7 @@ $(function(){
 		$(this).parent().parent().fadeOut("1500ms");
 	});
 	
-	$("#reset").click(function(){
+	$(".reset").click(function(){
 		$gameSummary();
 		readySetGo();
 	});

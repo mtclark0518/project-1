@@ -239,10 +239,11 @@ p {
 #game_recap {
 	position: absolute;
 	background: url("../img/background/hill_landscape.jpg");
+
 	background-size: cover;
 	background-repeat: no-repeat;
 	color: black;
-	box-shadow: 0 0 45px 4em rgba(0,0,0,.7);
+	box-shadow: 0 0 45px 3em rgba(0,0,0,.6);
 	width: 60%;
 	left: 20%;
 	/*	left: 10%; */	
@@ -261,10 +262,10 @@ p {
 	background: transparent;
 	
 }
+
 .button_container#recap{
-
+	top: 50%;
 }
-
 
 .button {
 	transition-duration: 550ms;
