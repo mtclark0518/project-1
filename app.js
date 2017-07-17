@@ -67,7 +67,6 @@ function Player(name, index, score, isActive, shotCount, targetsHit) {
 //////////////////////////////////////////////
 /////////  TARGET CONSTRUCTOR Fn /////////////
 
-//object constructor
 function Target(){
 	this.isHit = false;
 	this.presented = false;
@@ -97,25 +96,25 @@ Target.prototype = {
 		$target.css("top", this.startHeight);
 		$target
 			.animate({
-				left : "+=" + (Math.random()*(85-75)+75) + "%",
+				left : (Math.random()*(90-40)+40) + "%",
 				top: "-=" + (this.start/4) + "%"}, 
 				this.lifespan/4)
 			.animate({
-				left : "-=" + (Math.random()*(75-35)+35) + "%",
+				left : (Math.random()*(30-20)+20) + "%",
 				}, this.lifespan/4)
 			.animate({
-				left : "+=" + (Math.random()*(35-30)+30) + "%",
+				left : Math.random()*(90-10)+10 + "%",
 				top: "+=" + (this.start/8) + "%"}, 
 				this.lifespan/8)
 			.animate({
-				left : "-=" + (Math.random()*(30-15) + 15) + "%",
+				left : (Math.random()*(45-25) + 25) + "%",
 				top: "+=" + (this.start/8) + "%"}, 
 				this.lifespan/8)
 			.animate({
-				left : "+=" + (Math.random()*(15 - 5)+ 5) + "%",
+				left : Math.random()*(95 - 5) + 5 + "%",
 				top: "0%"}, 
 				{
-				duration : this.lifespan/8, 
+				duration : this.lifespan/16, 
 				complete: function(){
 				this.remove();
 				} 
@@ -237,12 +236,12 @@ $(function(){
 
 //POPUP FUNCTIONALITY //
 
-	$("#triggerInstructions").click(function(){
-		$("#instructions").toggleClass("hidden");
+	$(".triggerInstructions").click(function(){
+		$("#instructions").fadeIn("500ms");
 	});
 
 	$(".close").click(function(){
-		$(this).parent().addClass("hidden");
+		$(this).parent().fadeOut("1500ms");
 	});
 
 	$("#triggerPlay").click(function(){
@@ -285,7 +284,7 @@ $(function(){
 	$gameSummary = function(){
 		var $summary = $("#game_recap");
 		$summary.toggleClass("hidden");
-		$("<p>").addClass("summary").appendTo($summary);
+		$("h1").addClass("summary").appendTo($summary);
 		if(player1.score === player2.score){
 			$(".summary").text("Its a Tie");	
 		}else if (player1.score > player2.score){

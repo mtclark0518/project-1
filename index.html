@@ -16,7 +16,7 @@
 </head>
 <body>
 		<nav id="nav">
-			<img src="img/speedypig.png">
+			<img id="logo" src="img/pig-head.png" alt="Makin Bacon Logo of a pig head.">
 			<span id="nav_head"><span id="makin">MAKIN'</span> Bacon</span>
 		</nav>
 		<main>
@@ -35,7 +35,7 @@
 				<div id="game_cover" class="popup ">
 					<div class="button_container">
 						<button id="triggerPlay" class="button"><span>Play</span></button>
-						<button  id="triggerInstructions" class="button"><span>Instructions</span></button>
+						<button  id="" class="button triggerInstructions"><span>Instructions</span></button>
 					</div>
 				</div>	
 				<div class="scoreboard">
@@ -54,9 +54,11 @@
 				</div>	
 				<div id="gameSpace">
 					<div id="game_recap" class="popup hidden">
-						<button class="close button">X</button>						
-						<p></p>
-						<button id="reset" class="button">Play Again</button>
+						
+						<div class="button_container">
+							<button id="reset" class="button">Play Again</button>							
+							<button class="button triggerInstructions"><span>Instructions</span></button>
+						</div>
 					</div>
 				</div>
 
@@ -66,7 +68,7 @@
 		<footer>
 			<div class="footer_section"></div>
 				<div id="iconContainer">
-					<a class="icon icon-linkedin" href="https://www.linkedin.com/in/mtclark518"></a>
+					<a class="icon icon-linkedin animate" href="https://www.linkedin.com/in/mtclark518"></a>
 					<a class="icon icon-codepen" href="https://codepen.io/tclark518/"></a>
 					<a class="icon icon-github" href="https://www.github.com/mtclark0518"></a>
 				</div>
