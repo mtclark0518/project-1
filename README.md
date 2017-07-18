@@ -1,6 +1,8 @@
 ### Project One README
 
 ### --------------------"Makin' Bacon"--------------------
+### mtclark0518.github.io/project-1
+check it out - throw me some ideas for updates.
 
 **----Version 0-----
 		  
@@ -35,7 +37,7 @@
 	
 		
 		
-		Grow in "strength || hp"
+Grow in "strength || hp"
 		
 
 ### ----------Timing & Scoring & Winning Condition----------

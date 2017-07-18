@@ -1,4 +1,4 @@
-*{
+* {
 	box-sizing: border-box;
 	font-family: 'Amatica SC', cursive;
 	font-size: 1em ;
@@ -28,7 +28,7 @@ nav img {
 	padding-top: 5px;
 }
 
-span#nav_head{
+span#nav_head {
 	display: inline-block;
 	font-family: "Amatica SC", cursive;
 	font-weight: 700;
@@ -38,7 +38,7 @@ span#nav_head{
 	padding-top: 5px;
 	padding-right: 46px;
 }
-span#makin{
+span#makin {
 	font-family:'Press Start 2P', cursive;
 	font-size: .75em;
 	vertical-align: middle;
@@ -66,12 +66,14 @@ span#makin{
 	margin: auto;
 	border-radius: 2px;
 	box-shadow: 0 0 1px 0 rgba(25, 25, 25, 0.8);
+	cursor: crosshair;
 }
+
 
 /*********SCOREBOARD STYLES*************/
 
 
-.sb_section{
+.sb_section {
 	position: absolute;
 	top:0px;
 	width: 25%;
@@ -80,16 +82,16 @@ span#makin{
 	box-shadow: 0 0 1px 0 rgba(25, 25, 25, .2);
 	z-index: 500;
 }
-.sb_section#p1{
+.sb_section#p1 {
 	background: rgba(143, 183, 49, 1.0);
 	left: 0;
 }
-.sb_section#p2{
+.sb_section#p2 {
 	background: rgba(242, 211, 98, 1.0);
 	right: 0;
 }
 
-.sb_label{
+.sb_label {
 	height: 20px;
 	text-align: center;
 	background: rgba();
@@ -104,12 +106,12 @@ span#makin{
 	background: rgba(255, 253, 239, 1.0);
 	color: black;
 }
-div#round_time{
+div#round_time {
 	top: 0;
 	width: 50%;
 	margin: 0 25%;
 }
-div#round_time .sb_label{
+div#round_time .sb_label {
 	height: 20px;
 	background: linear-gradient(to right, rgba(143, 183, 49, 1.0), rgba(242, 211, 98, 1.0));
 }
@@ -186,13 +188,13 @@ footer {
 	z-index: 601;
 	
 }
-.cover_img_container{
+.cover_img_container {
 	background: transparent;
 	text-align: center;
 	margin-top: 10%;
 }
 
-#game_cover_img{
+#game_cover_img {
 	width: 250px;
 	height: 250px;
 	transition: transform rotateZ(-360deg);
@@ -200,7 +202,7 @@ footer {
 	
 }
 
-#game_cover_img:hover{
+#game_cover_img:hover {
 	transition-duration: 3000ms;
 	transform: rotateZ(360deg);
 
@@ -220,7 +222,7 @@ footer {
 
 }
 
-li{
+li {
 	padding: 5px;
 	font-size: 30px;
 }
@@ -258,12 +260,12 @@ p {
 	text-align: center;
 }
 
-.button_container#cover{
+.button_container#cover {
 	background: transparent;
 	
 }
 
-.button_container#recap{
+.button_container#recap {
 	top: 50%;
 }
 
@@ -278,7 +280,7 @@ p {
 	
 	border: 1px solid black;
 }
-.button span{
+.button span {
 	padding: 6px 14px;
 	font-size: 1.0em;
 	font-weight: 700;

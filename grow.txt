@@ -1,0 +1,21 @@
+Grow:
+
+
+rate(amountOfWork, priority_personal, priority_theMan)
+
+-more random flight paths - 1 - 1 - 1
+-other objects (trees/clouds)-3 - 1 - 5
+-shotgun sound effects + + + -2 - 5 - 5
+-variations on target origin + -illustrate pig types - 5 - 3 - 5
+-add difficulty levels -3
+-sound working for all shots - 1
+-pause button + -1
+-check responsive+ -2
+
+- vary use of pigs
+-add collision detection
+make an 8-bit version
+
+
+
+Added crosshair cursor.

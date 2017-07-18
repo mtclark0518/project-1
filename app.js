@@ -35,7 +35,7 @@ var $resetBoard;
 var $allTargets;
 var $gameSpace;
 var $target;
-
+var $gunShot;
 
 //////////////////////////////////////////////
 ///////////  GAME CONSTRUCTOR  ///////////////
@@ -45,8 +45,11 @@ var game = {
 	round : round,
 	tm : tm,
 	rnd : rnd,
-	numOfTargets : numOfTargets || 0
+	numOfTargets : numOfTargets || 0,
+
 };
+
+		
 
 
 //////////////////////////////////////////////
@@ -65,68 +68,87 @@ function Player(name, index, score, isActive, shotCount, targetsHit) {
 //////////////////////////////////////////////
 /////////  TARGET CONSTRUCTOR Fn /////////////
 
-function Target(){
+function Target() {
 	this.isHit = false;
 	this.presented = false;
 	
 	this.start = Math.floor(Math.random() * (60-10)) + 10;
 	this.startHeight = this.start + "%";
-	this.originSide = this.start % 2 === 0 ? "left" : "right";
+	this.originSide = this.start % 2 === 0 ? 'left' : 'right';
 	
 	this.typeIndex = Math.floor(Math.random() * 5) + 1;
-	this.type = this.typeIndex === 5 ? "special" : "standard";
+	this.type = this.typeIndex === 5 ? 'special' : 'standard';
 	
-	this.lifespan = this.type === "standard" ? (Math.floor(Math.random() * 6) + 5) * 2000 : (Math.floor(Math.random() * 6) + 5) * 1000;
+	this.lifespan = this.type === 'standard' ? (Math.floor(Math.random() * 6) + 5) * 2000 : (Math.floor(Math.random() * 6) + 5) * 1000;
 	this.speed = 5000 / this.typeIndex;
 	this.value = Math.floor( (10 - (this.lifespan/2000)) + (this.typeIndex * 2));
 }
 Target.prototype = {
-	birthday : function(){
+	birthday : function() {
 		$target = $("<div>");
-		$sound = $("<audio>").addClass("piggy");
+		$sound = $("<audio>").addClass('piggy');
+		$gunShot = $("<audio.>").addClass('shot');
 		$sound.attr("src", "sound/wreee.mp3");
+		$gunShot.attr("src", "sound/bullet1.mp3");
 		$target.append($sound);
 		$gameSpace = $("#gameSpace");
-
+		$gameSpace.append($gunShot);
 		$gameSpace.append($target);
 		$target.addClass('target');
 		$target.addClass(this.type);
 		$target.presented = true;
-		$target.on("click", function(){
-			$sound[0].play();
+		$gameSpace.on("click", function() {
+			if(this === $target) {
+				$sound[0].play();
+			}
 		});
 		$target.on("click", $iBeenShot);
 		$target.css("top", this.startHeight);
 		$target
-			.animate({//<------------------------------------------btwn left: 40%-90%
+			//<------------------------------------------btwn left: 40%-90%
+			.animate({
 				left : (Math.random()*(90-40)+40) + "%",
-				top: "-=" + (this.start/4) + "%"}, {
+				top: "-=" + (this.start/4) + "%"
+			}, {
 				duration : this.lifespan/4})
-			.animate({//<------------------------------------------bwtn left: 20%-30%
-				left : (Math.random()*(30-20)+20) + "%"},{
+			
+			//<------------------------------------------bwtn left: 20%-30%	
+			.animate({
+				left : (Math.random()*(30-20)+20) + "%"
+			},{
 				duration : this.lifespan/4})
-			.animate({//<------------------------------------------btwn left: 10%-90%
+			
+			//<------------------------------------------btwn left: 10%-90%
+			.animate({
 				left : Math.random()*(90-10)+10 + "%",
-				top: "+=" + (this.start/8) + "%"},{
+				top: "+=" + (this.start/8) + "%"
+			},{
 				duration : this.lifespan/4})
-			.animate({//<------------------------------------------btwn left: 5% -95%
+			
+			//<------------------------------------------btwn left: 5% -95%
+			.animate({
 				left : Math.random()*(95 - 5) + 5 + "%",
-				top: "0%"},{//<------------------------------------head up to top of games space
+				//<------------------------------------head up to top of games space
+				top: "0%"
+			},{
 				duration : this.lifespan/4,
 				complete: function(){
 					$(this).remove();
 				} 
-			});}};
+		});
+	}
+};
 	
 ////////////////////////////////////////////
 //////////////  TIMEKEEPING  /////////////////
 
 //3 second timer before players round begins
 readySetGo = function(){
-	$removeTargets(); //<----------------
-	$updateScore();//<-------------------
+	$removeTargets(); 
+	$updateScore();
 	if(game.round === 1){
-		game.myTurn = "player2";//<----------SET ACTIVE PLAYER = PLAYER2
+		//SET ACTIVE PLAYER = PLAYER2
+		game.myTurn = "player2";
 		player1.isActive = false;
 		player2.isActive = true;
 		console.log(game.myTurn + "'s turn");
@@ -143,8 +165,10 @@ readySetGo = function(){
 		game.tm = 3;
 		game.round++;
 		setTimeout(countDown, 1000);
-	}else{  //round currently = 0
-		game.myTurn = "player1";//<----------SET ACTIVE PLAYER = PLAYER1
+	//round currently = 0
+	}else{  
+		//SET ACTIVE PLAYER = PLAYER1
+		game.myTurn = "player1";
 		player1.isActive = true;
 		player2.isActive = false;
 		console.log(game.myTurn + "'s turn");
@@ -155,17 +179,17 @@ readySetGo = function(){
 	}
 };
 countDown = function(){
-	$playerReady();		//<-------------------- line 237
+	$playerReady();		
 	if(game.tm === 0){
 		console.log("start shootin");
-		startSpawning();//<--------------------
-		playerRound();//<----------------------
+		startSpawning();
+		playerRound();
 	}else{
 		console.log(game.tm);
 		game.tm--;
 		setTimeout(countDown, 1250);}};	
 
-//Timer keeping track of time remaining in a given players round// Starts spawning targets
+//Timer keeping track of time remaining in a given players round
 playerRound = function(){
 	game.rnd = 30;
 	$displayTimeRemaining();//<-----------------
@@ -191,27 +215,30 @@ gameClock = function(){
 //////////////  TARGET SPAWN  /////////////////
 
 //calls the newSpawn function on an interval at 2 per sec
-startSpawning = function(){
+startSpawning = function() {
 	spawnInterval = setInterval(newSpawn, 100); //spawning takes place quickly
 };
 //stop creating targets
-stopSpawning = function(){
+stopSpawning = function() {
 	window.clearInterval(spawnInterval);
 };
 //creates a new target spawn and appends to gamespace
-newSpawn = function(){
+newSpawn = function() {
 	var thisLilPiggy =  new Target(); 
 	game.numOfTargets++;
 
 	//set max number per round so players see the same total amount
-	if(game.numOfTargets === 9){
+	if(game.numOfTargets === 9) {
 		stopSpawning();
 		console.log("all out of spawns");
-	}else{
+	} else {
 		console.log(game.numOfTargets);
 		
 		//actually appending each instance will take varying lengths of time spaced out much longer
-		setTimeout(function(){thisLilPiggy.birthday();}, (((Math.random() * 20) + 1) * 1000));//appending between 1s -20s
+		setTimeout(function() {
+		thisLilPiggy.birthday();
+		//appending between 1s -20s
+		}, (((Math.random() * 20) + 1) * 1000));
 	}
 };
 
@@ -222,29 +249,37 @@ var player2 = new Player("Player2", 1);
 /////////  JQUERY DOC READY CODING  ////////////
 
 
-$(function(){
+$(function() {
+
+	$gunShot = $('<audio>').addClass("miss");
+	$gunShot.attr('src', 'sound/bullet1.mp3');
+	$gameSpace = $("#gameSpace");
+	$gameSpace.click(function() {
+		$gunShot[0].play();
+	});
+
 
 //POPUP FUNCTIONALITY //
 
-	$(".triggerInstructions").click(function(){
+	$(".triggerInstructions").click(function() {
 		$("#instructions").fadeIn("500ms");
 	});
 
-	$(".close").click(function(){
+	$(".close").click(function() {
 		$(this).parent().fadeOut("1500ms");
 	});
 
-	$(".triggerPlay").click(function(){
-		$("#game_cover").fadeOut('1500ms',function(){
+	$(".triggerPlay").click(function() {
+		$("#game_cover").fadeOut('1500ms',function() {
 			$(this).addClass("hidden");
 			readySetGo();
 		});
 	});
-	$("#instructions_play").click(function(){
+	$("#instructions_play").click(function() {
 		$(this).parent().parent().fadeOut("1500ms");
 	});
 	
-	$(".reset").click(function(){
+	$(".reset").click(function() {
 		$gameSummary();
 		readySetGo();
 	});
@@ -253,12 +288,16 @@ $(function(){
 	
 ///////// VARIOUS FUNCTIONALITY ////////////
 
-	$removeTargets = function(){
+
+	//removes targets from gamespace
+	$removeTargets = function() {
 		$allTargets = $(".target");
 		$allTargets.remove();
 		game.numOfTargets = 0;
 	};
-	$playerReady = function(){
+
+	//initiates the between round countdown
+	$playerReady = function() {
 		var $time = game.tm;
 		var $clock = $('<div>').appendTo("body");
 		$clock.addClass("clock");
@@ -269,57 +308,65 @@ $(function(){
 			$updatePlayerReady();
 		}
 	};
-	$updatePlayerReady = function(){
+	
+	//updates round countdown
+	$updatePlayerReady = function() {
 		$(".clock").fadeOut(1250).text(" ");
 		$(".clock").text(game.tm);
 	};
-	$gameSummary = function(){
+	
+	//triggers the game summary to appear (checks win condition)
+	$gameSummary = function() {
 		var $summary = $("#game_recap");
 		$summary.toggleClass("hidden");
 		$("h1").addClass("summary").appendTo($summary);
-		if(player1.score === player2.score){
+		if(player1.score === player2.score) {
 			$(".summary").text("Its a Tie");	
-		}else if (player1.score > player2.score){
+		} else if (player1.score > player2.score) {
 			$(".summary").text("Player 1 Wins");
-		}else{
+		} else {
 			$(".summary").text("Player 2 Wins");
 		}
 		player1.score = 0;
 		player2.score = 0;
 	};		
-	$displayTimeRemaining = function(){
+	
+	//displays time remaining in scoreboard
+	$displayTimeRemaining = function() {
 		var $rndTm = game.rnd;
 		var $roundTimeDisplay = $("#round_time_display");
 		$roundTimeDisplay.text($rndTm);
 	};
-	$displayScore = function(){
+	//displays player scores in scoreboard
+	$displayScore = function() {
 		$('#p1Sc').text(player1.score);
 		$('#p2Sc').text(player2.score);
 	};
-	$updateScore = function(){
+	
+	//updates player scores in scoreboard
+	$updateScore = function() {
 		$("#p1Sc").text(" ");
 		$("#p2Sc").text(" ");
 		$("#p1Sc").text(player1.score);
 		$("#p2Sc").text(player2.score);
 	};
 
-
 ///////// PLAYER/TARGET INTERACTIONS ////////////
 
-	$iBeenShot = function(){
+	$iBeenShot = function() {
 		console.log(this);
 		this.isHit = true;
 		this.lifespan = 0;
-		if(this.isHit === true){
+		if(this.isHit === true) {
 			this.remove();
 		}
 		console.log("target removed");
-		if(game.myTurn === "player1"){
+		if(game.myTurn === "player1") {
 			player1.score++;
 			$updateScore();
 			player1.shotCount++;
 			console.log("Player1 Score: " + player1.score);
-		}else if(game.myTurn === "player2"){
+		} else if (game.myTurn === "player2") {
 			player2.score++;
 			$updateScore();
 			player2.shotCount++;
