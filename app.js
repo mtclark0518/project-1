@@ -1,22 +1,31 @@
 //////////////////////////////////////////////
 ///////////  VARIABLE DECLARATIONS  ///////////////
 
-//game variables
-var myTurn; 
-var round = 0; 
+//global game propteries 
 var tm;
-var rnd; 
 var numOfTargets;
 
+//solo specific propteries
+var numOfTargetsLeft;
+var level = 1;
+var levelMax;
+//timing solo propteries
+var readySetSolo;
 
-//timing variables
+
+//vs specific propteries
+var rnd; 
+var myTurn;
+var round = 0;
+
+//timing vs propteries
 var readySetGo; 
 var countDown;
 var playerRound;
 var gameClock;
 
 
-//target spawn variables
+//target spawn methods
 var startSpawning;
 var stopSpawning; 
 var spawnInterval;
@@ -36,29 +45,68 @@ var $allTargets;
 var $gameSpace;
 var $target;
 var $gunShot;
+var $game_versus;
+var $game_solo;
+
+
+//
+
 
 //////////////////////////////////////////////
 ///////////  GAME CONSTRUCTOR  ///////////////
+function Game(){
+	this.tm = tm;
+	this.level = level || 1;
+	this.numOfTargets = numOfTargets || 0;
+	}
 
-var game = {
-	myTurn : myTurn,
-	round : round,
-	tm : tm,
-	rnd : rnd,
-	numOfTargets : numOfTargets || 0,
+//GAME TYPES
+function Solo(){
+	Game.apply(this, arguments);
+	this.levelMax = this.level * 7;
+	this.numOfTargetsLeft = this.levelMax - this.numOfTargets;
+	}
+Solo.prototype = new Game();
 
-};
+function Vs(){
+	Game.apply(this, arguments);
+	this.myTurn = myTurn;
+	this.rnd = rnd || 30;
+	this.round = round || 0;	
+	}
+Vs.prototype = new Game();
 
-		
+// var game = {
+// 	myTurn : myTurn,
+// 	round : round,
+// 	tm : tm,
+// 	rnd : rnd,
+// 	numOfTargets : numOfTargets || 0,
 
+// };
+
+
+function animation(){
+	var animate;
+	var high = Math.random()*(95-60)+60;
+	var low = Math.random()*(45-5)+5;
+	var coinflip = Math.floor(Math.random()*(2 - 1 + 1) + 1);
+	if (coinflip === 2) {
+		animate = high + '%';
+	} else {
+		animate = low + '%';
+	}
+	return animate;
+}
 
 //////////////////////////////////////////////
 ///////  PLAYER CONSTRUCTOR Fn /////////////
 
-function Player(name, index, score, isActive, shotCount, targetsHit) {
+function Player(name, index, score, level, isActive, shotCount, targetsHit) {
 	this.name = name;
 	this.index = index;
 	this.score = score || 0;
+	this.level = level || 1;
 	this.isActive = isActive || false;
 	this.shotCount = shotCount || 0;
 	this.targetsHit = targetsHit || 0;
@@ -83,10 +131,10 @@ function Target() {
 	this.speed = this.boosted === true ? 2 : 1;
 	this.lifespan = (Math.floor(Math.random() * (9 - 7) + 7) * 1000)/this.speed; 
 	this.value = Math.floor( (10 - (this.lifespan/1000)) + (this.typeIndex * this.speed) );
-
-
 	console.log(this);
 }
+
+
 Target.prototype = {
 	birthday : function() {
 		$target = $("<div>");
@@ -98,10 +146,8 @@ Target.prototype = {
 		$target.addClass('target');
 		$target.addClass(this.type);
 		$target.presented = true;
-		$gameSpace.on("click", function() {
-			if(this === $target) {
-				$sound[0].play();
-			}
+		$target.on("click", function() {
+			$sound[0].play();
 		});
 		$target.on("click", $iBeenShot);
 		$target.css(this.originSide, 0);
@@ -109,27 +155,34 @@ Target.prototype = {
 		$target
 			//<------------------------------------------btwn left: 40%-90%
 			.animate({
-				left : (Math.random()*(90-40)+40) + "%",
+				left : animation(),
 				top: "-=" + (this.start/4) + "%"
+			}, {
+				duration : this.lifespan/4})
+			
+			//<------------------------------------------btwn left: 40%-90%
+			.animate({
+				left : animation(),
+				top: "+=" + (this.start/4) + "%"
 			}, {
 				duration : this.lifespan/4})
 			
 			//<------------------------------------------bwtn left: 20%-30%	
 			.animate({
-				left : (Math.random()*(30-20)+20) + "%"
+				left : animation()
 			},{
 				duration : this.lifespan/4})
 			
 			//<------------------------------------------btwn left: 10%-90%
 			.animate({
-				left : Math.random()*(90-10)+10 + "%",
+				left : animation(),
 				top : "+=" + (this.start/8) + "%"
 			},{
 				duration : this.lifespan/4})
 			
 			//<------------------------------------------btwn left: 5% -95%
 			.animate({
-				left : Math.random()*(95 - 5) + 5 + "%",
+				left : animation(),
 				//<------------------------------------head up to top of games space
 				top : "0%"
 			},{
@@ -145,68 +198,74 @@ Target.prototype = {
 //////////////  TIMEKEEPING  /////////////////
 
 //3 second timer before players round begins
+
+readySetSolo = function(){
+	alert('solo game coming soon');
+};
 readySetGo = function(){
 	$removeTargets(); 
 	$updateScore();
-	if(game.round === 1){
+	if(Vs.round === 1){
 		//SET ACTIVE PLAYER = PLAYER2
-		game.myTurn = "player2";
+		Vs.myTurn = "player2";
 		player1.isActive = false;
 		player2.isActive = true;
-		console.log(game.myTurn + "'s turn");
-		game.tm = 3;
-		game.round++;
+		console.log(Vs.myTurn + "'s turn");
+		Game.tm = 3;
+		Vs.round++;
 		setTimeout(countDown, 1000);
-	}else if(game.round >= 2){
-		game.round = 0;
+	}else if(Vs.round >= 2){
+		Vs.round = 0;
 		console.log("time for a new game. round " + round + ". the score is " + player1.score + ":" + player2.score);
-		game.myTurn = "player1";
+		Vs.myTurn = "player1";
 		player2.isActive = false;
 		player1.isActive = true;
-		console.log(game.myTurn + "'s turn");
-		game.tm = 3;
-		game.round++;
+		console.log(Vs.myTurn + "'s turn");
+		Game.tm = 3;
+		Vs.round++;
 		setTimeout(countDown, 1000);
 	//round currently = 0
 	}else{  
 		//SET ACTIVE PLAYER = PLAYER1
-		game.myTurn = "player1";
+		Vs.myTurn = "player1";
 		player1.isActive = true;
 		player2.isActive = false;
-		console.log(game.myTurn + "'s turn");
-		game.tm = 3;
-		game.round++;
-		console.log(game.round);
+		console.log(Vs.myTurn + "'s turn");
+		Game.tm = 3;
+		Vs.round++;
+		console.log(Game.round);
 		setTimeout(countDown, 1000);
 	}
 };
 countDown = function(){
 	$playerReady();		
-	if(game.tm === 0){
+	if(Game.tm === 0){
 		console.log("start shootin");
 		startSpawning();
 		playerRound();
 	}else{
-		console.log(game.tm);
-		game.tm--;
-		setTimeout(countDown, 1250);}};	
+		console.log(Game.tm);
+		Game.tm--;
+		setTimeout(countDown, 1250);
+	}
+};	
 
 //Timer keeping track of time remaining in a given players round
 playerRound = function(){
-	game.rnd = 30;
+	Vs.rnd = 30;
 	$displayTimeRemaining();//<-----------------
 	$displayScore();//<-------------------------
 	setTimeout(gameClock, 1000);};
 
 gameClock = function(){
-	if(game.rnd === 0){
+	if(Vs.rnd === 0){
 		console.log("buzz");
-		if(game.round === 2){
+		if(Vs.round === 2){
 			$gameSummary();//<-------------------
 		}else{setTimeout(readySetGo, 1500);}
 	}else{
-		console.log(game.rnd);
-		game.rnd--;
+		console.log(Vs.rnd);
+		Vs.rnd--;
 		$displayTimeRemaining();//<---------------
 		$displayScore();//<-----------------------
 		setTimeout(gameClock, 1000);
@@ -227,14 +286,14 @@ stopSpawning = function() {
 //creates a new target spawn and appends to gamespace
 newSpawn = function() {
 	var thisLilPiggy =  new Target(); 
-	game.numOfTargets++;
+	Game.numOfTargets++;
 
 	//set max number per round so players see the same total amount
-	if(game.numOfTargets === 9) {
+	if(Game.numOfTargets === 11) {
 		stopSpawning();
 		console.log("all out of spawns");
 	} else {
-		console.log(game.numOfTargets);
+		console.log(Game.numOfTargets);
 		
 		//actually appending each instance will take varying lengths of time spaced out much longer
 		setTimeout(function() {
@@ -272,10 +331,16 @@ $(function() {
 		$(this).parent().fadeOut("1500ms");
 	});
 
-	$(".triggerPlay").click(function() {
+	$(".vs").click(function() {
 		$("#game_cover").fadeOut('1500ms',function() {
 			$(this).addClass("hidden");
-			readySetGo();
+				$game_versus();	
+		});
+	});
+	$(".solo").click(function() {
+		$("#game_cover").fadeOut('1500ms',function() {
+			$(this).addClass("hidden");
+				$game_solo();	
 		});
 	});
 
@@ -285,25 +350,40 @@ $(function() {
 	
 	$(".reset").click(function() {
 		$gameSummary();
-		readySetGo();
 	});
 
 
 	
 ///////// VARIOUS FUNCTIONALITY ////////////
+	$game_versus = function() {
+		$newGameVs = new Vs();
+		console.log(this);
+		console.log($newGameVs);
+		readySetGo();
+	};
 
+	$game_solo = function() {
+		$newGameSolo = new Solo();
+		console.log(this);
+		console.log($newGameSolo);
+		readySetSolo();
+	};
 
 	//removes targets from gamespace
 	$removeTargets = function() {
 		$allTargets = $(".target");
 		$allTargets.remove();
-		game.numOfTargets = 0;
+		Game.numOfTargets = 0;
 	};
 
 	//initiates the between round countdown
 	$playerReady = function() {
-		var $time = game.tm;
+		var $time = Game.tm;
 		var $clock = $('<div>').appendTo("body");
+		$clock.text('Ready');
+		setTimeout(function(){
+			$clock.fadeOut(1000).text(" ");
+			}, 500);
 		$clock.addClass("clock");
 		$clock.text($time);
 		if($time === 0){
@@ -316,7 +396,7 @@ $(function() {
 	//updates round countdown
 	$updatePlayerReady = function() {
 		$(".clock").fadeOut(1250).text(" ");
-		$(".clock").text(game.tm);
+		$(".clock").text(Game.tm);
 	};
 	
 	//triggers the game summary to appear (checks win condition)
@@ -334,18 +414,21 @@ $(function() {
 		player1.score = 0;
 		player2.score = 0;
 	};		
+
+
 	
 	//displays time remaining in scoreboard
 	$displayTimeRemaining = function() {
-		var $rndTm = game.rnd;
+		var $rndTm = Vs.rnd;
 		var $roundTimeDisplay = $("#round_time_display");
 		$roundTimeDisplay.text($rndTm);
 	};
 
-	//displays player scores in scoreboard
+	//displays player(s) level/scores in scoreboard
 	$displayScore = function() {
 		$('#p1Sc').text(player1.score);
 		$('#p2Sc').text(player2.score);
+			// $('#p2Sc').text(player1.level);	
 	};
 	
 	//updates player scores in scoreboard
@@ -354,6 +437,7 @@ $(function() {
 		$("#p2Sc").text(" ");
 		$("#p1Sc").text(player1.score);
 		$("#p2Sc").text(player2.score);
+		// $("#p2Sc").text(player1.level);
 	};
 
 ///////// PLAYER/TARGET INTERACTIONS ////////////
@@ -366,19 +450,19 @@ $(function() {
 			this.remove();
 		}
 		console.log("target removed");
-		if(game.myTurn === "player1") {
+		if(Vs.myTurn === "player1") {
 			player1.score++;
 			$updateScore();
 			player1.shotCount++;
 			console.log("Player1 Score: " + player1.score);
-		} else if (game.myTurn === "player2") {
+		} else if (Vs.myTurn === "player2") {
 			player2.score++;
 			$updateScore();
 			player2.shotCount++;
 			console.log("Player2 Score: " + player2.score);
 		}	
 	};
-	
+
 
 });
 
