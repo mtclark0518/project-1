@@ -69,30 +69,31 @@ function Player(name, index, score, isActive, shotCount, targetsHit) {
 /////////  TARGET CONSTRUCTOR Fn /////////////
 
 function Target() {
+	this.typeIndex = Math.floor(Math.random() * 10) + 1;
+	
+	this.type = this.typeIndex === 10 ? 'special' : 'standard';
+	this.boosted = this.typeIndex >= 8 ? true : false;
+	this.trixster = this.typeIndex === 8 ? true : false;
 	this.isHit = false;
 	this.presented = false;
 	
-	this.start = Math.floor(Math.random() * (60-10)) + 10;
+	this.start = Math.floor(Math.random() * (50-10)) + 10;
 	this.startHeight = this.start + "%";
 	this.originSide = this.start % 2 === 0 ? 'left' : 'right';
-	
-	this.typeIndex = Math.floor(Math.random() * 5) + 1;
-	this.type = this.typeIndex === 5 ? 'special' : 'standard';
-	
-	this.lifespan = this.type === 'standard' ? (Math.floor(Math.random() * 6) + 5) * 2000 : (Math.floor(Math.random() * 6) + 5) * 1000;
-	this.speed = 5000 / this.typeIndex;
-	this.value = Math.floor( (10 - (this.lifespan/2000)) + (this.typeIndex * 2));
+	this.speed = this.boosted === true ? 2 : 1;
+	this.lifespan = (Math.floor(Math.random() * (9 - 7) + 7) * 1000)/this.speed; 
+	this.value = Math.floor( (10 - (this.lifespan/1000)) + (this.typeIndex * this.speed) );
+
+
+	console.log(this);
 }
 Target.prototype = {
 	birthday : function() {
 		$target = $("<div>");
 		$sound = $("<audio>").addClass('piggy');
-		$gunShot = $("<audio.>").addClass('shot');
 		$sound.attr("src", "sound/wreee.mp3");
-		$gunShot.attr("src", "sound/bullet1.mp3");
 		$target.append($sound);
 		$gameSpace = $("#gameSpace");
-		$gameSpace.append($gunShot);
 		$gameSpace.append($target);
 		$target.addClass('target');
 		$target.addClass(this.type);
@@ -103,6 +104,7 @@ Target.prototype = {
 			}
 		});
 		$target.on("click", $iBeenShot);
+		$target.css(this.originSide, 0);
 		$target.css("top", this.startHeight);
 		$target
 			//<------------------------------------------btwn left: 40%-90%
@@ -121,7 +123,7 @@ Target.prototype = {
 			//<------------------------------------------btwn left: 10%-90%
 			.animate({
 				left : Math.random()*(90-10)+10 + "%",
-				top: "+=" + (this.start/8) + "%"
+				top : "+=" + (this.start/8) + "%"
 			},{
 				duration : this.lifespan/4})
 			
@@ -129,10 +131,10 @@ Target.prototype = {
 			.animate({
 				left : Math.random()*(95 - 5) + 5 + "%",
 				//<------------------------------------head up to top of games space
-				top: "0%"
+				top : "0%"
 			},{
 				duration : this.lifespan/4,
-				complete: function(){
+				complete : function(){
 					$(this).remove();
 				} 
 		});
@@ -254,6 +256,7 @@ $(function() {
 	$gunShot = $('<audio>').addClass("miss");
 	$gunShot.attr('src', 'sound/bullet1.mp3');
 	$gameSpace = $("#gameSpace");
+	$gameSpace.append($gunShot);
 	$gameSpace.click(function() {
 		$gunShot[0].play();
 	});
@@ -275,6 +278,7 @@ $(function() {
 			readySetGo();
 		});
 	});
+
 	$("#instructions_play").click(function() {
 		$(this).parent().parent().fadeOut("1500ms");
 	});
@@ -337,6 +341,7 @@ $(function() {
 		var $roundTimeDisplay = $("#round_time_display");
 		$roundTimeDisplay.text($rndTm);
 	};
+
 	//displays player scores in scoreboard
 	$displayScore = function() {
 		$('#p1Sc').text(player1.score);
