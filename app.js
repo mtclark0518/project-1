@@ -58,6 +58,7 @@ function Game(){
 	this.tm = tm;
 	this.level = level || 1;
 	this.numOfTargets = numOfTargets || 0;
+	this.round = round || 0;	
 	}
 
 //GAME TYPES
@@ -72,7 +73,6 @@ function Vs(){
 	Game.apply(this, arguments);
 	this.myTurn = myTurn;
 	this.rnd = rnd || 30;
-	this.round = round || 0;	
 	}
 Vs.prototype = new Game();
 
@@ -205,24 +205,24 @@ readySetSolo = function(){
 readySetGo = function(){
 	$removeTargets(); 
 	$updateScore();
-	if(Vs.round === 1){
+	if(Game.round === 1){
 		//SET ACTIVE PLAYER = PLAYER2
 		Vs.myTurn = "player2";
 		player1.isActive = false;
 		player2.isActive = true;
 		console.log(Vs.myTurn + "'s turn");
 		Game.tm = 3;
-		Vs.round++;
+		Game.round++;
 		setTimeout(countDown, 1000);
-	}else if(Vs.round >= 2){
-		Vs.round = 0;
+	}else if(Game.round >= 2){
+		Game.round = 0;
 		console.log("time for a new game. round " + round + ". the score is " + player1.score + ":" + player2.score);
 		Vs.myTurn = "player1";
 		player2.isActive = false;
 		player1.isActive = true;
 		console.log(Vs.myTurn + "'s turn");
 		Game.tm = 3;
-		Vs.round++;
+		Game.round++;
 		setTimeout(countDown, 1000);
 	//round currently = 0
 	}else{  
@@ -232,7 +232,7 @@ readySetGo = function(){
 		player2.isActive = false;
 		console.log(Vs.myTurn + "'s turn");
 		Game.tm = 3;
-		Vs.round++;
+		Game.round++;
 		console.log(Game.round);
 		setTimeout(countDown, 1000);
 	}
